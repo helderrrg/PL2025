@@ -1,6 +1,6 @@
 # PL2025-A104100
 
-![Hélder Gomes](heldergomes.jpg.jpg)  
+![Hélder Gomes](heldergomes.jpg)  
 
 ## 📌 Identificação  
 - **Nome:** Hélder Ricardo Ribeiro Gomes
