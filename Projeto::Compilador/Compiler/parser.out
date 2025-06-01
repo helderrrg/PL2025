@@ -1,0 +1,3489 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> Program
+Rule 1     Program -> Header Content .
+Rule 2     Header -> PROGRAM identifier ( ListH ) ;
+Rule 3     Header -> PROGRAM identifier ;
+Rule 4     ListH -> ListH , identifier
+Rule 5     ListH -> identifier
+Rule 6     Content -> Declarations CompoundStatement
+Rule 7     Declarations -> Declarations VariableDeclarationPart
+Rule 8     Declarations -> Declarations ProcedureDeclarationPart
+Rule 9     Declarations -> Declarations FunctionDeclarationPart
+Rule 10    Declarations -> <empty>
+Rule 11    VariableDeclarationPart -> VAR ListVarsDeclaration
+Rule 12    ListVarsDeclaration -> ListVarsDeclaration ElemVarsDeclaration ;
+Rule 13    ListVarsDeclaration -> ElemVarsDeclaration ;
+Rule 14    ElemVarsDeclaration -> IdentifierList COLON identifier
+Rule 15    ElemVarsDeclaration -> IdentifierList COLON Array
+Rule 16    Array -> ARRAY [ Constant . . Constant ] OF identifier
+Rule 17    IdentifierList -> IdentifierList , identifier
+Rule 18    IdentifierList -> identifier
+Rule 19    ProcedureDeclarationPart -> PROCEDURE identifier ListParametersDeclaration ; Content ;
+Rule 20    FunctionDeclarationPart -> FUNCTION identifier ListParametersDeclaration COLON identifier ; Content ;
+Rule 21    ListParametersDeclaration -> ( ListOfListParameters )
+Rule 22    ListOfListParameters -> ListOfListParameters ; ListParameters
+Rule 23    ListOfListParameters -> ListOfListParameters ; VAR ListParameters
+Rule 24    ListOfListParameters -> ListParameters
+Rule 25    ListOfListParameters -> VAR ListParameters
+Rule 26    ListParametersDeclaration -> <empty>
+Rule 27    ListParametersDeclaration -> ( )
+Rule 28    ListParameters -> ListParameters , ElemParameter
+Rule 29    ListParameters -> ElemParameter
+Rule 30    ElemParameter -> IdentifierList COLON ARRAY OF identifier
+Rule 31    ElemParameter -> IdentifierList COLON identifier
+Rule 32    CompoundStatement -> BEGIN ListStatement END
+Rule 33    ListStatement -> ListStatementAux LastStatement
+Rule 34    ListStatementAux -> ListStatementAux Statement ;
+Rule 35    ListStatementAux -> <empty>
+Rule 36    LastStatement -> Statement
+Rule 37    LastStatement -> <empty>
+Rule 38    Statement -> SimpleStatement
+Rule 39    Statement -> StructeredStatement
+Rule 40    SimpleStatement -> AssignmentStatement
+Rule 41    SimpleStatement -> ProcedureStatement
+Rule 42    AssignmentStatement -> Variable ASSIGN Expression
+Rule 43    ProcedureStatement -> identifier ( ListArgs )
+Rule 44    ProcedureStatement -> identifier ( )
+Rule 45    ProcedureStatement -> identifier
+Rule 46    ListArgs -> ListArgs , Arg
+Rule 47    ListArgs -> Arg
+Rule 48    Arg -> Expression
+Rule 49    StructeredStatement -> CompoundStatement
+Rule 50    StructeredStatement -> ConditionalStatement
+Rule 51    StructeredStatement -> RepetitiveStatement
+Rule 52    ConditionalStatement -> IfStatement
+Rule 53    IfStatement -> IF Expression THEN Statement
+Rule 54    IfStatement -> IF Expression THEN Statement ELSE Statement
+Rule 55    RepetitiveStatement -> WhileStatement
+Rule 56    RepetitiveStatement -> ForStatement
+Rule 57    WhileStatement -> WHILE Expression DO Statement
+Rule 58    ForStatement -> FOR identifier ASSIGN Expression TO Expression DO Statement
+Rule 59    ForStatement -> FOR identifier ASSIGN Expression DOWNTO Expression DO Statement
+Rule 60    Expression -> SimpleExpression RelationalOperator Expression
+Rule 61    Expression -> SimpleExpression
+Rule 62    RelationalOperator -> EQUAL
+Rule 63    RelationalOperator -> GREATER_THAN
+Rule 64    RelationalOperator -> LESS_THAN
+Rule 65    RelationalOperator -> NOT_EQUAL
+Rule 66    RelationalOperator -> GREATER_THAN_EQUAL
+Rule 67    RelationalOperator -> LESS_THAN_EQUAL
+Rule 68    SimpleExpression -> Sign Term SecondPriorityOperator SimpleExpression
+Rule 69    SimpleExpression -> Term SecondPriorityOperator SimpleExpression
+Rule 70    SimpleExpression -> Term
+Rule 71    SecondPriorityOperator -> +
+Rule 72    SecondPriorityOperator -> -
+Rule 73    SecondPriorityOperator -> OR
+Rule 74    Sign -> +
+Rule 75    Sign -> -
+Rule 76    Term -> Factor FirstPriorityOperator Term
+Rule 77    Term -> Factor
+Rule 78    FirstPriorityOperator -> *
+Rule 79    FirstPriorityOperator -> /
+Rule 80    FirstPriorityOperator -> DIV
+Rule 81    FirstPriorityOperator -> MOD
+Rule 82    FirstPriorityOperator -> AND
+Rule 83    Factor -> ( Expression )
+Rule 84    Factor -> Variable
+Rule 85    Factor -> UnsignedConstant
+Rule 86    Factor -> FunctionDesignator
+Rule 87    Factor -> NOT Factor
+Rule 88    Factor -> TRUE
+Rule 89    Factor -> FALSE
+Rule 90    FunctionDesignator -> identifier ( ListArgs )
+Rule 91    FunctionDesignator -> identifier ( )
+Rule 92    UnsignedConstant -> UnsignedNumber
+Rule 93    UnsignedConstant -> string
+Rule 94    UnsignedConstant -> char
+Rule 95    Constant -> num_int
+Rule 96    Constant -> Sign num_int
+Rule 97    Constant -> char
+Rule 98    UnsignedNumber -> num_int
+Rule 99    UnsignedNumber -> num_real
+Rule 100   Variable -> identifier
+Rule 101   Variable -> identifier [ ListExpressions ]
+Rule 102   ListExpressions -> ListExpressions , Expression
+Rule 103   ListExpressions -> Expression
+
+Terminals, with rules where they appear
+
+(                    : 2 21 27 43 44 83 90 91
+)                    : 2 21 27 43 44 83 90 91
+*                    : 78
++                    : 71 74
+,                    : 4 17 28 46 102
+-                    : 72 75
+.                    : 1 16 16
+/                    : 79
+;                    : 2 3 12 13 19 19 20 20 22 23 34
+AND                  : 82
+ARRAY                : 16 30
+ASSIGN               : 42 58 59
+BEGIN                : 32
+COLON                : 14 15 20 30 31
+DIV                  : 80
+DO                   : 57 58 59
+DOWNTO               : 59
+ELSE                 : 54
+END                  : 32
+EQUAL                : 62
+FALSE                : 89
+FOR                  : 58 59
+FUNCTION             : 20
+GREATER_THAN         : 63
+GREATER_THAN_EQUAL   : 66
+IF                   : 53 54
+LESS_THAN            : 64
+LESS_THAN_EQUAL      : 67
+MOD                  : 81
+NOT                  : 87
+NOT_EQUAL            : 65
+OF                   : 16 30
+OR                   : 73
+PROCEDURE            : 19
+PROGRAM              : 2 3
+THEN                 : 53 54
+TO                   : 58
+TRUE                 : 88
+VAR                  : 11 23 25
+WHILE                : 57
+[                    : 16 101
+]                    : 16 101
+char                 : 94 97
+error                : 
+identifier           : 2 3 4 5 14 16 17 18 19 20 20 30 31 43 44 45 58 59 90 91 100 101
+num_int              : 95 96 98
+num_real             : 99
+string               : 93
+
+Nonterminals, with rules where they appear
+
+Arg                  : 46 47
+Array                : 15
+AssignmentStatement  : 40
+CompoundStatement    : 6 49
+ConditionalStatement : 50
+Constant             : 16 16
+Content              : 1 19 20
+Declarations         : 6 7 8 9
+ElemParameter        : 28 29
+ElemVarsDeclaration  : 12 13
+Expression           : 42 48 53 54 57 58 58 59 59 60 83 102 103
+Factor               : 76 77 87
+FirstPriorityOperator : 76
+ForStatement         : 56
+FunctionDeclarationPart : 9
+FunctionDesignator   : 86
+Header               : 1
+IdentifierList       : 14 15 17 30 31
+IfStatement          : 52
+LastStatement        : 33
+ListArgs             : 43 46 90
+ListExpressions      : 101 102
+ListH                : 2 4
+ListOfListParameters : 21 22 23
+ListParameters       : 22 23 24 25 28
+ListParametersDeclaration : 19 20
+ListStatement        : 32
+ListStatementAux     : 33 34
+ListVarsDeclaration  : 11 12
+ProcedureDeclarationPart : 8
+ProcedureStatement   : 41
+Program              : 0
+RelationalOperator   : 60
+RepetitiveStatement  : 51
+SecondPriorityOperator : 68 69
+Sign                 : 68 96
+SimpleExpression     : 60 61 68 69
+SimpleStatement      : 38
+Statement            : 34 36 53 54 54 57 58 59
+StructeredStatement  : 39
+Term                 : 68 69 70 76
+UnsignedConstant     : 85
+UnsignedNumber       : 92
+Variable             : 42 84
+VariableDeclarationPart : 7
+WhileStatement       : 55
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . Program
+    (1) Program -> . Header Content .
+    (2) Header -> . PROGRAM identifier ( ListH ) ;
+    (3) Header -> . PROGRAM identifier ;
+
+    PROGRAM         shift and go to state 3
+
+    Program                        shift and go to state 1
+    Header                         shift and go to state 2
+
+state 1
+
+    (0) S' -> Program .
+
+
+
+state 2
+
+    (1) Program -> Header . Content .
+    (6) Content -> . Declarations CompoundStatement
+    (7) Declarations -> . Declarations VariableDeclarationPart
+    (8) Declarations -> . Declarations ProcedureDeclarationPart
+    (9) Declarations -> . Declarations FunctionDeclarationPart
+    (10) Declarations -> .
+
+    BEGIN           reduce using rule 10 (Declarations -> .)
+    VAR             reduce using rule 10 (Declarations -> .)
+    PROCEDURE       reduce using rule 10 (Declarations -> .)
+    FUNCTION        reduce using rule 10 (Declarations -> .)
+
+    Content                        shift and go to state 4
+    Declarations                   shift and go to state 5
+
+state 3
+
+    (2) Header -> PROGRAM . identifier ( ListH ) ;
+    (3) Header -> PROGRAM . identifier ;
+
+    identifier      shift and go to state 6
+
+
+state 4
+
+    (1) Program -> Header Content . .
+
+    .               shift and go to state 7
+
+
+state 5
+
+    (6) Content -> Declarations . CompoundStatement
+    (7) Declarations -> Declarations . VariableDeclarationPart
+    (8) Declarations -> Declarations . ProcedureDeclarationPart
+    (9) Declarations -> Declarations . FunctionDeclarationPart
+    (32) CompoundStatement -> . BEGIN ListStatement END
+    (11) VariableDeclarationPart -> . VAR ListVarsDeclaration
+    (19) ProcedureDeclarationPart -> . PROCEDURE identifier ListParametersDeclaration ; Content ;
+    (20) FunctionDeclarationPart -> . FUNCTION identifier ListParametersDeclaration COLON identifier ; Content ;
+
+    BEGIN           shift and go to state 12
+    VAR             shift and go to state 13
+    PROCEDURE       shift and go to state 14
+    FUNCTION        shift and go to state 15
+
+    CompoundStatement              shift and go to state 8
+    VariableDeclarationPart        shift and go to state 9
+    ProcedureDeclarationPart       shift and go to state 10
+    FunctionDeclarationPart        shift and go to state 11
+
+state 6
+
+    (2) Header -> PROGRAM identifier . ( ListH ) ;
+    (3) Header -> PROGRAM identifier . ;
+
+    (               shift and go to state 16
+    ;               shift and go to state 17
+
+
+state 7
+
+    (1) Program -> Header Content . .
+
+    $end            reduce using rule 1 (Program -> Header Content . .)
+
+
+state 8
+
+    (6) Content -> Declarations CompoundStatement .
+
+    .               reduce using rule 6 (Content -> Declarations CompoundStatement .)
+    ;               reduce using rule 6 (Content -> Declarations CompoundStatement .)
+
+
+state 9
+
+    (7) Declarations -> Declarations VariableDeclarationPart .
+
+    BEGIN           reduce using rule 7 (Declarations -> Declarations VariableDeclarationPart .)
+    VAR             reduce using rule 7 (Declarations -> Declarations VariableDeclarationPart .)
+    PROCEDURE       reduce using rule 7 (Declarations -> Declarations VariableDeclarationPart .)
+    FUNCTION        reduce using rule 7 (Declarations -> Declarations VariableDeclarationPart .)
+
+
+state 10
+
+    (8) Declarations -> Declarations ProcedureDeclarationPart .
+
+    BEGIN           reduce using rule 8 (Declarations -> Declarations ProcedureDeclarationPart .)
+    VAR             reduce using rule 8 (Declarations -> Declarations ProcedureDeclarationPart .)
+    PROCEDURE       reduce using rule 8 (Declarations -> Declarations ProcedureDeclarationPart .)
+    FUNCTION        reduce using rule 8 (Declarations -> Declarations ProcedureDeclarationPart .)
+
+
+state 11
+
+    (9) Declarations -> Declarations FunctionDeclarationPart .
+
+    BEGIN           reduce using rule 9 (Declarations -> Declarations FunctionDeclarationPart .)
+    VAR             reduce using rule 9 (Declarations -> Declarations FunctionDeclarationPart .)
+    PROCEDURE       reduce using rule 9 (Declarations -> Declarations FunctionDeclarationPart .)
+    FUNCTION        reduce using rule 9 (Declarations -> Declarations FunctionDeclarationPart .)
+
+
+state 12
+
+    (32) CompoundStatement -> BEGIN . ListStatement END
+    (33) ListStatement -> . ListStatementAux LastStatement
+    (34) ListStatementAux -> . ListStatementAux Statement ;
+    (35) ListStatementAux -> .
+
+    identifier      reduce using rule 35 (ListStatementAux -> .)
+    BEGIN           reduce using rule 35 (ListStatementAux -> .)
+    IF              reduce using rule 35 (ListStatementAux -> .)
+    WHILE           reduce using rule 35 (ListStatementAux -> .)
+    FOR             reduce using rule 35 (ListStatementAux -> .)
+    END             reduce using rule 35 (ListStatementAux -> .)
+
+    ListStatement                  shift and go to state 18
+    ListStatementAux               shift and go to state 19
+
+state 13
+
+    (11) VariableDeclarationPart -> VAR . ListVarsDeclaration
+    (12) ListVarsDeclaration -> . ListVarsDeclaration ElemVarsDeclaration ;
+    (13) ListVarsDeclaration -> . ElemVarsDeclaration ;
+    (14) ElemVarsDeclaration -> . IdentifierList COLON identifier
+    (15) ElemVarsDeclaration -> . IdentifierList COLON Array
+    (17) IdentifierList -> . IdentifierList , identifier
+    (18) IdentifierList -> . identifier
+
+    identifier      shift and go to state 23
+
+    ListVarsDeclaration            shift and go to state 20
+    ElemVarsDeclaration            shift and go to state 21
+    IdentifierList                 shift and go to state 22
+
+state 14
+
+    (19) ProcedureDeclarationPart -> PROCEDURE . identifier ListParametersDeclaration ; Content ;
+
+    identifier      shift and go to state 24
+
+
+state 15
+
+    (20) FunctionDeclarationPart -> FUNCTION . identifier ListParametersDeclaration COLON identifier ; Content ;
+
+    identifier      shift and go to state 25
+
+
+state 16
+
+    (2) Header -> PROGRAM identifier ( . ListH ) ;
+    (4) ListH -> . ListH , identifier
+    (5) ListH -> . identifier
+
+    identifier      shift and go to state 26
+
+    ListH                          shift and go to state 27
+
+state 17
+
+    (3) Header -> PROGRAM identifier ; .
+
+    BEGIN           reduce using rule 3 (Header -> PROGRAM identifier ; .)
+    VAR             reduce using rule 3 (Header -> PROGRAM identifier ; .)
+    PROCEDURE       reduce using rule 3 (Header -> PROGRAM identifier ; .)
+    FUNCTION        reduce using rule 3 (Header -> PROGRAM identifier ; .)
+
+
+state 18
+
+    (32) CompoundStatement -> BEGIN ListStatement . END
+
+    END             shift and go to state 28
+
+
+state 19
+
+    (33) ListStatement -> ListStatementAux . LastStatement
+    (34) ListStatementAux -> ListStatementAux . Statement ;
+    (36) LastStatement -> . Statement
+    (37) LastStatement -> .
+    (38) Statement -> . SimpleStatement
+    (39) Statement -> . StructeredStatement
+    (40) SimpleStatement -> . AssignmentStatement
+    (41) SimpleStatement -> . ProcedureStatement
+    (49) StructeredStatement -> . CompoundStatement
+    (50) StructeredStatement -> . ConditionalStatement
+    (51) StructeredStatement -> . RepetitiveStatement
+    (42) AssignmentStatement -> . Variable ASSIGN Expression
+    (43) ProcedureStatement -> . identifier ( ListArgs )
+    (44) ProcedureStatement -> . identifier ( )
+    (45) ProcedureStatement -> . identifier
+    (32) CompoundStatement -> . BEGIN ListStatement END
+    (52) ConditionalStatement -> . IfStatement
+    (55) RepetitiveStatement -> . WhileStatement
+    (56) RepetitiveStatement -> . ForStatement
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (53) IfStatement -> . IF Expression THEN Statement
+    (54) IfStatement -> . IF Expression THEN Statement ELSE Statement
+    (57) WhileStatement -> . WHILE Expression DO Statement
+    (58) ForStatement -> . FOR identifier ASSIGN Expression TO Expression DO Statement
+    (59) ForStatement -> . FOR identifier ASSIGN Expression DOWNTO Expression DO Statement
+
+    END             reduce using rule 37 (LastStatement -> .)
+    identifier      shift and go to state 39
+    BEGIN           shift and go to state 12
+    IF              shift and go to state 43
+    WHILE           shift and go to state 44
+    FOR             shift and go to state 45
+
+    LastStatement                  shift and go to state 29
+    Statement                      shift and go to state 30
+    SimpleStatement                shift and go to state 31
+    StructeredStatement            shift and go to state 32
+    AssignmentStatement            shift and go to state 33
+    ProcedureStatement             shift and go to state 34
+    CompoundStatement              shift and go to state 35
+    ConditionalStatement           shift and go to state 36
+    RepetitiveStatement            shift and go to state 37
+    Variable                       shift and go to state 38
+    IfStatement                    shift and go to state 40
+    WhileStatement                 shift and go to state 41
+    ForStatement                   shift and go to state 42
+
+state 20
+
+    (11) VariableDeclarationPart -> VAR ListVarsDeclaration .
+    (12) ListVarsDeclaration -> ListVarsDeclaration . ElemVarsDeclaration ;
+    (14) ElemVarsDeclaration -> . IdentifierList COLON identifier
+    (15) ElemVarsDeclaration -> . IdentifierList COLON Array
+    (17) IdentifierList -> . IdentifierList , identifier
+    (18) IdentifierList -> . identifier
+
+    BEGIN           reduce using rule 11 (VariableDeclarationPart -> VAR ListVarsDeclaration .)
+    VAR             reduce using rule 11 (VariableDeclarationPart -> VAR ListVarsDeclaration .)
+    PROCEDURE       reduce using rule 11 (VariableDeclarationPart -> VAR ListVarsDeclaration .)
+    FUNCTION        reduce using rule 11 (VariableDeclarationPart -> VAR ListVarsDeclaration .)
+    identifier      shift and go to state 23
+
+    ElemVarsDeclaration            shift and go to state 46
+    IdentifierList                 shift and go to state 22
+
+state 21
+
+    (13) ListVarsDeclaration -> ElemVarsDeclaration . ;
+
+    ;               shift and go to state 47
+
+
+state 22
+
+    (14) ElemVarsDeclaration -> IdentifierList . COLON identifier
+    (15) ElemVarsDeclaration -> IdentifierList . COLON Array
+    (17) IdentifierList -> IdentifierList . , identifier
+
+    COLON           shift and go to state 48
+    ,               shift and go to state 49
+
+
+state 23
+
+    (18) IdentifierList -> identifier .
+
+    COLON           reduce using rule 18 (IdentifierList -> identifier .)
+    ,               reduce using rule 18 (IdentifierList -> identifier .)
+
+
+state 24
+
+    (19) ProcedureDeclarationPart -> PROCEDURE identifier . ListParametersDeclaration ; Content ;
+    (21) ListParametersDeclaration -> . ( ListOfListParameters )
+    (26) ListParametersDeclaration -> .
+    (27) ListParametersDeclaration -> . ( )
+
+    (               shift and go to state 51
+    ;               reduce using rule 26 (ListParametersDeclaration -> .)
+
+    ListParametersDeclaration      shift and go to state 50
+
+state 25
+
+    (20) FunctionDeclarationPart -> FUNCTION identifier . ListParametersDeclaration COLON identifier ; Content ;
+    (21) ListParametersDeclaration -> . ( ListOfListParameters )
+    (26) ListParametersDeclaration -> .
+    (27) ListParametersDeclaration -> . ( )
+
+    (               shift and go to state 51
+    COLON           reduce using rule 26 (ListParametersDeclaration -> .)
+
+    ListParametersDeclaration      shift and go to state 52
+
+state 26
+
+    (5) ListH -> identifier .
+
+    )               reduce using rule 5 (ListH -> identifier .)
+    ,               reduce using rule 5 (ListH -> identifier .)
+
+
+state 27
+
+    (2) Header -> PROGRAM identifier ( ListH . ) ;
+    (4) ListH -> ListH . , identifier
+
+    )               shift and go to state 53
+    ,               shift and go to state 54
+
+
+state 28
+
+    (32) CompoundStatement -> BEGIN ListStatement END .
+
+    .               reduce using rule 32 (CompoundStatement -> BEGIN ListStatement END .)
+    ;               reduce using rule 32 (CompoundStatement -> BEGIN ListStatement END .)
+    END             reduce using rule 32 (CompoundStatement -> BEGIN ListStatement END .)
+    ELSE            reduce using rule 32 (CompoundStatement -> BEGIN ListStatement END .)
+
+
+state 29
+
+    (33) ListStatement -> ListStatementAux LastStatement .
+
+    END             reduce using rule 33 (ListStatement -> ListStatementAux LastStatement .)
+
+
+state 30
+
+    (34) ListStatementAux -> ListStatementAux Statement . ;
+    (36) LastStatement -> Statement .
+
+    ;               shift and go to state 55
+    END             reduce using rule 36 (LastStatement -> Statement .)
+
+
+state 31
+
+    (38) Statement -> SimpleStatement .
+
+    ;               reduce using rule 38 (Statement -> SimpleStatement .)
+    END             reduce using rule 38 (Statement -> SimpleStatement .)
+    ELSE            reduce using rule 38 (Statement -> SimpleStatement .)
+
+
+state 32
+
+    (39) Statement -> StructeredStatement .
+
+    ;               reduce using rule 39 (Statement -> StructeredStatement .)
+    END             reduce using rule 39 (Statement -> StructeredStatement .)
+    ELSE            reduce using rule 39 (Statement -> StructeredStatement .)
+
+
+state 33
+
+    (40) SimpleStatement -> AssignmentStatement .
+
+    ;               reduce using rule 40 (SimpleStatement -> AssignmentStatement .)
+    END             reduce using rule 40 (SimpleStatement -> AssignmentStatement .)
+    ELSE            reduce using rule 40 (SimpleStatement -> AssignmentStatement .)
+
+
+state 34
+
+    (41) SimpleStatement -> ProcedureStatement .
+
+    ;               reduce using rule 41 (SimpleStatement -> ProcedureStatement .)
+    END             reduce using rule 41 (SimpleStatement -> ProcedureStatement .)
+    ELSE            reduce using rule 41 (SimpleStatement -> ProcedureStatement .)
+
+
+state 35
+
+    (49) StructeredStatement -> CompoundStatement .
+
+    ;               reduce using rule 49 (StructeredStatement -> CompoundStatement .)
+    END             reduce using rule 49 (StructeredStatement -> CompoundStatement .)
+    ELSE            reduce using rule 49 (StructeredStatement -> CompoundStatement .)
+
+
+state 36
+
+    (50) StructeredStatement -> ConditionalStatement .
+
+    ;               reduce using rule 50 (StructeredStatement -> ConditionalStatement .)
+    END             reduce using rule 50 (StructeredStatement -> ConditionalStatement .)
+    ELSE            reduce using rule 50 (StructeredStatement -> ConditionalStatement .)
+
+
+state 37
+
+    (51) StructeredStatement -> RepetitiveStatement .
+
+    ;               reduce using rule 51 (StructeredStatement -> RepetitiveStatement .)
+    END             reduce using rule 51 (StructeredStatement -> RepetitiveStatement .)
+    ELSE            reduce using rule 51 (StructeredStatement -> RepetitiveStatement .)
+
+
+state 38
+
+    (42) AssignmentStatement -> Variable . ASSIGN Expression
+
+    ASSIGN          shift and go to state 56
+
+
+state 39
+
+    (43) ProcedureStatement -> identifier . ( ListArgs )
+    (44) ProcedureStatement -> identifier . ( )
+    (45) ProcedureStatement -> identifier .
+    (100) Variable -> identifier .
+    (101) Variable -> identifier . [ ListExpressions ]
+
+    (               shift and go to state 57
+    ;               reduce using rule 45 (ProcedureStatement -> identifier .)
+    END             reduce using rule 45 (ProcedureStatement -> identifier .)
+    ELSE            reduce using rule 45 (ProcedureStatement -> identifier .)
+    ASSIGN          reduce using rule 100 (Variable -> identifier .)
+    [               shift and go to state 58
+
+
+state 40
+
+    (52) ConditionalStatement -> IfStatement .
+
+    ;               reduce using rule 52 (ConditionalStatement -> IfStatement .)
+    END             reduce using rule 52 (ConditionalStatement -> IfStatement .)
+    ELSE            reduce using rule 52 (ConditionalStatement -> IfStatement .)
+
+
+state 41
+
+    (55) RepetitiveStatement -> WhileStatement .
+
+    ;               reduce using rule 55 (RepetitiveStatement -> WhileStatement .)
+    END             reduce using rule 55 (RepetitiveStatement -> WhileStatement .)
+    ELSE            reduce using rule 55 (RepetitiveStatement -> WhileStatement .)
+
+
+state 42
+
+    (56) RepetitiveStatement -> ForStatement .
+
+    ;               reduce using rule 56 (RepetitiveStatement -> ForStatement .)
+    END             reduce using rule 56 (RepetitiveStatement -> ForStatement .)
+    ELSE            reduce using rule 56 (RepetitiveStatement -> ForStatement .)
+
+
+state 43
+
+    (53) IfStatement -> IF . Expression THEN Statement
+    (54) IfStatement -> IF . Expression THEN Statement ELSE Statement
+    (60) Expression -> . SimpleExpression RelationalOperator Expression
+    (61) Expression -> . SimpleExpression
+    (68) SimpleExpression -> . Sign Term SecondPriorityOperator SimpleExpression
+    (69) SimpleExpression -> . Term SecondPriorityOperator SimpleExpression
+    (70) SimpleExpression -> . Term
+    (74) Sign -> . +
+    (75) Sign -> . -
+    (76) Term -> . Factor FirstPriorityOperator Term
+    (77) Term -> . Factor
+    (83) Factor -> . ( Expression )
+    (84) Factor -> . Variable
+    (85) Factor -> . UnsignedConstant
+    (86) Factor -> . FunctionDesignator
+    (87) Factor -> . NOT Factor
+    (88) Factor -> . TRUE
+    (89) Factor -> . FALSE
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (92) UnsignedConstant -> . UnsignedNumber
+    (93) UnsignedConstant -> . string
+    (94) UnsignedConstant -> . char
+    (90) FunctionDesignator -> . identifier ( ListArgs )
+    (91) FunctionDesignator -> . identifier ( )
+    (98) UnsignedNumber -> . num_int
+    (99) UnsignedNumber -> . num_real
+
+    +               shift and go to state 63
+    -               shift and go to state 64
+    (               shift and go to state 66
+    NOT             shift and go to state 70
+    TRUE            shift and go to state 71
+    FALSE           shift and go to state 72
+    identifier      shift and go to state 73
+    string          shift and go to state 75
+    char            shift and go to state 76
+    num_int         shift and go to state 77
+    num_real        shift and go to state 78
+
+    Expression                     shift and go to state 59
+    SimpleExpression               shift and go to state 60
+    Sign                           shift and go to state 61
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 65
+    Variable                       shift and go to state 67
+    UnsignedConstant               shift and go to state 68
+    FunctionDesignator             shift and go to state 69
+    UnsignedNumber                 shift and go to state 74
+
+state 44
+
+    (57) WhileStatement -> WHILE . Expression DO Statement
+    (60) Expression -> . SimpleExpression RelationalOperator Expression
+    (61) Expression -> . SimpleExpression
+    (68) SimpleExpression -> . Sign Term SecondPriorityOperator SimpleExpression
+    (69) SimpleExpression -> . Term SecondPriorityOperator SimpleExpression
+    (70) SimpleExpression -> . Term
+    (74) Sign -> . +
+    (75) Sign -> . -
+    (76) Term -> . Factor FirstPriorityOperator Term
+    (77) Term -> . Factor
+    (83) Factor -> . ( Expression )
+    (84) Factor -> . Variable
+    (85) Factor -> . UnsignedConstant
+    (86) Factor -> . FunctionDesignator
+    (87) Factor -> . NOT Factor
+    (88) Factor -> . TRUE
+    (89) Factor -> . FALSE
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (92) UnsignedConstant -> . UnsignedNumber
+    (93) UnsignedConstant -> . string
+    (94) UnsignedConstant -> . char
+    (90) FunctionDesignator -> . identifier ( ListArgs )
+    (91) FunctionDesignator -> . identifier ( )
+    (98) UnsignedNumber -> . num_int
+    (99) UnsignedNumber -> . num_real
+
+    +               shift and go to state 63
+    -               shift and go to state 64
+    (               shift and go to state 66
+    NOT             shift and go to state 70
+    TRUE            shift and go to state 71
+    FALSE           shift and go to state 72
+    identifier      shift and go to state 73
+    string          shift and go to state 75
+    char            shift and go to state 76
+    num_int         shift and go to state 77
+    num_real        shift and go to state 78
+
+    Expression                     shift and go to state 79
+    SimpleExpression               shift and go to state 60
+    Sign                           shift and go to state 61
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 65
+    Variable                       shift and go to state 67
+    UnsignedConstant               shift and go to state 68
+    FunctionDesignator             shift and go to state 69
+    UnsignedNumber                 shift and go to state 74
+
+state 45
+
+    (58) ForStatement -> FOR . identifier ASSIGN Expression TO Expression DO Statement
+    (59) ForStatement -> FOR . identifier ASSIGN Expression DOWNTO Expression DO Statement
+
+    identifier      shift and go to state 80
+
+
+state 46
+
+    (12) ListVarsDeclaration -> ListVarsDeclaration ElemVarsDeclaration . ;
+
+    ;               shift and go to state 81
+
+
+state 47
+
+    (13) ListVarsDeclaration -> ElemVarsDeclaration ; .
+
+    identifier      reduce using rule 13 (ListVarsDeclaration -> ElemVarsDeclaration ; .)
+    BEGIN           reduce using rule 13 (ListVarsDeclaration -> ElemVarsDeclaration ; .)
+    VAR             reduce using rule 13 (ListVarsDeclaration -> ElemVarsDeclaration ; .)
+    PROCEDURE       reduce using rule 13 (ListVarsDeclaration -> ElemVarsDeclaration ; .)
+    FUNCTION        reduce using rule 13 (ListVarsDeclaration -> ElemVarsDeclaration ; .)
+
+
+state 48
+
+    (14) ElemVarsDeclaration -> IdentifierList COLON . identifier
+    (15) ElemVarsDeclaration -> IdentifierList COLON . Array
+    (16) Array -> . ARRAY [ Constant . . Constant ] OF identifier
+
+    identifier      shift and go to state 82
+    ARRAY           shift and go to state 84
+
+    Array                          shift and go to state 83
+
+state 49
+
+    (17) IdentifierList -> IdentifierList , . identifier
+
+    identifier      shift and go to state 85
+
+
+state 50
+
+    (19) ProcedureDeclarationPart -> PROCEDURE identifier ListParametersDeclaration . ; Content ;
+
+    ;               shift and go to state 86
+
+
+state 51
+
+    (21) ListParametersDeclaration -> ( . ListOfListParameters )
+    (27) ListParametersDeclaration -> ( . )
+    (22) ListOfListParameters -> . ListOfListParameters ; ListParameters
+    (23) ListOfListParameters -> . ListOfListParameters ; VAR ListParameters
+    (24) ListOfListParameters -> . ListParameters
+    (25) ListOfListParameters -> . VAR ListParameters
+    (28) ListParameters -> . ListParameters , ElemParameter
+    (29) ListParameters -> . ElemParameter
+    (30) ElemParameter -> . IdentifierList COLON ARRAY OF identifier
+    (31) ElemParameter -> . IdentifierList COLON identifier
+    (17) IdentifierList -> . IdentifierList , identifier
+    (18) IdentifierList -> . identifier
+
+    )               shift and go to state 88
+    VAR             shift and go to state 90
+    identifier      shift and go to state 23
+
+    ListOfListParameters           shift and go to state 87
+    ListParameters                 shift and go to state 89
+    ElemParameter                  shift and go to state 91
+    IdentifierList                 shift and go to state 92
+
+state 52
+
+    (20) FunctionDeclarationPart -> FUNCTION identifier ListParametersDeclaration . COLON identifier ; Content ;
+
+    COLON           shift and go to state 93
+
+
+state 53
+
+    (2) Header -> PROGRAM identifier ( ListH ) . ;
+
+    ;               shift and go to state 94
+
+
+state 54
+
+    (4) ListH -> ListH , . identifier
+
+    identifier      shift and go to state 95
+
+
+state 55
+
+    (34) ListStatementAux -> ListStatementAux Statement ; .
+
+    identifier      reduce using rule 34 (ListStatementAux -> ListStatementAux Statement ; .)
+    BEGIN           reduce using rule 34 (ListStatementAux -> ListStatementAux Statement ; .)
+    IF              reduce using rule 34 (ListStatementAux -> ListStatementAux Statement ; .)
+    WHILE           reduce using rule 34 (ListStatementAux -> ListStatementAux Statement ; .)
+    FOR             reduce using rule 34 (ListStatementAux -> ListStatementAux Statement ; .)
+    END             reduce using rule 34 (ListStatementAux -> ListStatementAux Statement ; .)
+
+
+state 56
+
+    (42) AssignmentStatement -> Variable ASSIGN . Expression
+    (60) Expression -> . SimpleExpression RelationalOperator Expression
+    (61) Expression -> . SimpleExpression
+    (68) SimpleExpression -> . Sign Term SecondPriorityOperator SimpleExpression
+    (69) SimpleExpression -> . Term SecondPriorityOperator SimpleExpression
+    (70) SimpleExpression -> . Term
+    (74) Sign -> . +
+    (75) Sign -> . -
+    (76) Term -> . Factor FirstPriorityOperator Term
+    (77) Term -> . Factor
+    (83) Factor -> . ( Expression )
+    (84) Factor -> . Variable
+    (85) Factor -> . UnsignedConstant
+    (86) Factor -> . FunctionDesignator
+    (87) Factor -> . NOT Factor
+    (88) Factor -> . TRUE
+    (89) Factor -> . FALSE
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (92) UnsignedConstant -> . UnsignedNumber
+    (93) UnsignedConstant -> . string
+    (94) UnsignedConstant -> . char
+    (90) FunctionDesignator -> . identifier ( ListArgs )
+    (91) FunctionDesignator -> . identifier ( )
+    (98) UnsignedNumber -> . num_int
+    (99) UnsignedNumber -> . num_real
+
+    +               shift and go to state 63
+    -               shift and go to state 64
+    (               shift and go to state 66
+    NOT             shift and go to state 70
+    TRUE            shift and go to state 71
+    FALSE           shift and go to state 72
+    identifier      shift and go to state 73
+    string          shift and go to state 75
+    char            shift and go to state 76
+    num_int         shift and go to state 77
+    num_real        shift and go to state 78
+
+    Variable                       shift and go to state 67
+    Expression                     shift and go to state 96
+    SimpleExpression               shift and go to state 60
+    Sign                           shift and go to state 61
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 65
+    UnsignedConstant               shift and go to state 68
+    FunctionDesignator             shift and go to state 69
+    UnsignedNumber                 shift and go to state 74
+
+state 57
+
+    (43) ProcedureStatement -> identifier ( . ListArgs )
+    (44) ProcedureStatement -> identifier ( . )
+    (46) ListArgs -> . ListArgs , Arg
+    (47) ListArgs -> . Arg
+    (48) Arg -> . Expression
+    (60) Expression -> . SimpleExpression RelationalOperator Expression
+    (61) Expression -> . SimpleExpression
+    (68) SimpleExpression -> . Sign Term SecondPriorityOperator SimpleExpression
+    (69) SimpleExpression -> . Term SecondPriorityOperator SimpleExpression
+    (70) SimpleExpression -> . Term
+    (74) Sign -> . +
+    (75) Sign -> . -
+    (76) Term -> . Factor FirstPriorityOperator Term
+    (77) Term -> . Factor
+    (83) Factor -> . ( Expression )
+    (84) Factor -> . Variable
+    (85) Factor -> . UnsignedConstant
+    (86) Factor -> . FunctionDesignator
+    (87) Factor -> . NOT Factor
+    (88) Factor -> . TRUE
+    (89) Factor -> . FALSE
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (92) UnsignedConstant -> . UnsignedNumber
+    (93) UnsignedConstant -> . string
+    (94) UnsignedConstant -> . char
+    (90) FunctionDesignator -> . identifier ( ListArgs )
+    (91) FunctionDesignator -> . identifier ( )
+    (98) UnsignedNumber -> . num_int
+    (99) UnsignedNumber -> . num_real
+
+    )               shift and go to state 98
+    +               shift and go to state 63
+    -               shift and go to state 64
+    (               shift and go to state 66
+    NOT             shift and go to state 70
+    TRUE            shift and go to state 71
+    FALSE           shift and go to state 72
+    identifier      shift and go to state 73
+    string          shift and go to state 75
+    char            shift and go to state 76
+    num_int         shift and go to state 77
+    num_real        shift and go to state 78
+
+    ListArgs                       shift and go to state 97
+    Arg                            shift and go to state 99
+    Expression                     shift and go to state 100
+    SimpleExpression               shift and go to state 60
+    Sign                           shift and go to state 61
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 65
+    Variable                       shift and go to state 67
+    UnsignedConstant               shift and go to state 68
+    FunctionDesignator             shift and go to state 69
+    UnsignedNumber                 shift and go to state 74
+
+state 58
+
+    (101) Variable -> identifier [ . ListExpressions ]
+    (102) ListExpressions -> . ListExpressions , Expression
+    (103) ListExpressions -> . Expression
+    (60) Expression -> . SimpleExpression RelationalOperator Expression
+    (61) Expression -> . SimpleExpression
+    (68) SimpleExpression -> . Sign Term SecondPriorityOperator SimpleExpression
+    (69) SimpleExpression -> . Term SecondPriorityOperator SimpleExpression
+    (70) SimpleExpression -> . Term
+    (74) Sign -> . +
+    (75) Sign -> . -
+    (76) Term -> . Factor FirstPriorityOperator Term
+    (77) Term -> . Factor
+    (83) Factor -> . ( Expression )
+    (84) Factor -> . Variable
+    (85) Factor -> . UnsignedConstant
+    (86) Factor -> . FunctionDesignator
+    (87) Factor -> . NOT Factor
+    (88) Factor -> . TRUE
+    (89) Factor -> . FALSE
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (92) UnsignedConstant -> . UnsignedNumber
+    (93) UnsignedConstant -> . string
+    (94) UnsignedConstant -> . char
+    (90) FunctionDesignator -> . identifier ( ListArgs )
+    (91) FunctionDesignator -> . identifier ( )
+    (98) UnsignedNumber -> . num_int
+    (99) UnsignedNumber -> . num_real
+
+    +               shift and go to state 63
+    -               shift and go to state 64
+    (               shift and go to state 66
+    NOT             shift and go to state 70
+    TRUE            shift and go to state 71
+    FALSE           shift and go to state 72
+    identifier      shift and go to state 73
+    string          shift and go to state 75
+    char            shift and go to state 76
+    num_int         shift and go to state 77
+    num_real        shift and go to state 78
+
+    ListExpressions                shift and go to state 101
+    Expression                     shift and go to state 102
+    SimpleExpression               shift and go to state 60
+    Sign                           shift and go to state 61
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 65
+    Variable                       shift and go to state 67
+    UnsignedConstant               shift and go to state 68
+    FunctionDesignator             shift and go to state 69
+    UnsignedNumber                 shift and go to state 74
+
+state 59
+
+    (53) IfStatement -> IF Expression . THEN Statement
+    (54) IfStatement -> IF Expression . THEN Statement ELSE Statement
+
+    THEN            shift and go to state 103
+
+
+state 60
+
+    (60) Expression -> SimpleExpression . RelationalOperator Expression
+    (61) Expression -> SimpleExpression .
+    (62) RelationalOperator -> . EQUAL
+    (63) RelationalOperator -> . GREATER_THAN
+    (64) RelationalOperator -> . LESS_THAN
+    (65) RelationalOperator -> . NOT_EQUAL
+    (66) RelationalOperator -> . GREATER_THAN_EQUAL
+    (67) RelationalOperator -> . LESS_THAN_EQUAL
+
+    THEN            reduce using rule 61 (Expression -> SimpleExpression .)
+    DO              reduce using rule 61 (Expression -> SimpleExpression .)
+    ;               reduce using rule 61 (Expression -> SimpleExpression .)
+    END             reduce using rule 61 (Expression -> SimpleExpression .)
+    ELSE            reduce using rule 61 (Expression -> SimpleExpression .)
+    )               reduce using rule 61 (Expression -> SimpleExpression .)
+    ,               reduce using rule 61 (Expression -> SimpleExpression .)
+    ]               reduce using rule 61 (Expression -> SimpleExpression .)
+    TO              reduce using rule 61 (Expression -> SimpleExpression .)
+    DOWNTO          reduce using rule 61 (Expression -> SimpleExpression .)
+    EQUAL           shift and go to state 105
+    GREATER_THAN    shift and go to state 106
+    LESS_THAN       shift and go to state 107
+    NOT_EQUAL       shift and go to state 108
+    GREATER_THAN_EQUAL shift and go to state 109
+    LESS_THAN_EQUAL shift and go to state 110
+
+    RelationalOperator             shift and go to state 104
+
+state 61
+
+    (68) SimpleExpression -> Sign . Term SecondPriorityOperator SimpleExpression
+    (76) Term -> . Factor FirstPriorityOperator Term
+    (77) Term -> . Factor
+    (83) Factor -> . ( Expression )
+    (84) Factor -> . Variable
+    (85) Factor -> . UnsignedConstant
+    (86) Factor -> . FunctionDesignator
+    (87) Factor -> . NOT Factor
+    (88) Factor -> . TRUE
+    (89) Factor -> . FALSE
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (92) UnsignedConstant -> . UnsignedNumber
+    (93) UnsignedConstant -> . string
+    (94) UnsignedConstant -> . char
+    (90) FunctionDesignator -> . identifier ( ListArgs )
+    (91) FunctionDesignator -> . identifier ( )
+    (98) UnsignedNumber -> . num_int
+    (99) UnsignedNumber -> . num_real
+
+    (               shift and go to state 66
+    NOT             shift and go to state 70
+    TRUE            shift and go to state 71
+    FALSE           shift and go to state 72
+    identifier      shift and go to state 73
+    string          shift and go to state 75
+    char            shift and go to state 76
+    num_int         shift and go to state 77
+    num_real        shift and go to state 78
+
+    Term                           shift and go to state 111
+    Factor                         shift and go to state 65
+    Variable                       shift and go to state 67
+    UnsignedConstant               shift and go to state 68
+    FunctionDesignator             shift and go to state 69
+    UnsignedNumber                 shift and go to state 74
+
+state 62
+
+    (69) SimpleExpression -> Term . SecondPriorityOperator SimpleExpression
+    (70) SimpleExpression -> Term .
+    (71) SecondPriorityOperator -> . +
+    (72) SecondPriorityOperator -> . -
+    (73) SecondPriorityOperator -> . OR
+
+    EQUAL           reduce using rule 70 (SimpleExpression -> Term .)
+    GREATER_THAN    reduce using rule 70 (SimpleExpression -> Term .)
+    LESS_THAN       reduce using rule 70 (SimpleExpression -> Term .)
+    NOT_EQUAL       reduce using rule 70 (SimpleExpression -> Term .)
+    GREATER_THAN_EQUAL reduce using rule 70 (SimpleExpression -> Term .)
+    LESS_THAN_EQUAL reduce using rule 70 (SimpleExpression -> Term .)
+    THEN            reduce using rule 70 (SimpleExpression -> Term .)
+    DO              reduce using rule 70 (SimpleExpression -> Term .)
+    ;               reduce using rule 70 (SimpleExpression -> Term .)
+    END             reduce using rule 70 (SimpleExpression -> Term .)
+    ELSE            reduce using rule 70 (SimpleExpression -> Term .)
+    )               reduce using rule 70 (SimpleExpression -> Term .)
+    ,               reduce using rule 70 (SimpleExpression -> Term .)
+    ]               reduce using rule 70 (SimpleExpression -> Term .)
+    TO              reduce using rule 70 (SimpleExpression -> Term .)
+    DOWNTO          reduce using rule 70 (SimpleExpression -> Term .)
+    +               shift and go to state 113
+    -               shift and go to state 114
+    OR              shift and go to state 115
+
+    SecondPriorityOperator         shift and go to state 112
+
+state 63
+
+    (74) Sign -> + .
+
+    (               reduce using rule 74 (Sign -> + .)
+    NOT             reduce using rule 74 (Sign -> + .)
+    TRUE            reduce using rule 74 (Sign -> + .)
+    FALSE           reduce using rule 74 (Sign -> + .)
+    identifier      reduce using rule 74 (Sign -> + .)
+    string          reduce using rule 74 (Sign -> + .)
+    char            reduce using rule 74 (Sign -> + .)
+    num_int         reduce using rule 74 (Sign -> + .)
+    num_real        reduce using rule 74 (Sign -> + .)
+
+
+state 64
+
+    (75) Sign -> - .
+
+    (               reduce using rule 75 (Sign -> - .)
+    NOT             reduce using rule 75 (Sign -> - .)
+    TRUE            reduce using rule 75 (Sign -> - .)
+    FALSE           reduce using rule 75 (Sign -> - .)
+    identifier      reduce using rule 75 (Sign -> - .)
+    string          reduce using rule 75 (Sign -> - .)
+    char            reduce using rule 75 (Sign -> - .)
+    num_int         reduce using rule 75 (Sign -> - .)
+    num_real        reduce using rule 75 (Sign -> - .)
+
+
+state 65
+
+    (76) Term -> Factor . FirstPriorityOperator Term
+    (77) Term -> Factor .
+    (78) FirstPriorityOperator -> . *
+    (79) FirstPriorityOperator -> . /
+    (80) FirstPriorityOperator -> . DIV
+    (81) FirstPriorityOperator -> . MOD
+    (82) FirstPriorityOperator -> . AND
+
+    +               reduce using rule 77 (Term -> Factor .)
+    -               reduce using rule 77 (Term -> Factor .)
+    OR              reduce using rule 77 (Term -> Factor .)
+    EQUAL           reduce using rule 77 (Term -> Factor .)
+    GREATER_THAN    reduce using rule 77 (Term -> Factor .)
+    LESS_THAN       reduce using rule 77 (Term -> Factor .)
+    NOT_EQUAL       reduce using rule 77 (Term -> Factor .)
+    GREATER_THAN_EQUAL reduce using rule 77 (Term -> Factor .)
+    LESS_THAN_EQUAL reduce using rule 77 (Term -> Factor .)
+    THEN            reduce using rule 77 (Term -> Factor .)
+    DO              reduce using rule 77 (Term -> Factor .)
+    ;               reduce using rule 77 (Term -> Factor .)
+    END             reduce using rule 77 (Term -> Factor .)
+    ELSE            reduce using rule 77 (Term -> Factor .)
+    )               reduce using rule 77 (Term -> Factor .)
+    ,               reduce using rule 77 (Term -> Factor .)
+    ]               reduce using rule 77 (Term -> Factor .)
+    TO              reduce using rule 77 (Term -> Factor .)
+    DOWNTO          reduce using rule 77 (Term -> Factor .)
+    *               shift and go to state 117
+    /               shift and go to state 118
+    DIV             shift and go to state 119
+    MOD             shift and go to state 120
+    AND             shift and go to state 121
+
+    FirstPriorityOperator          shift and go to state 116
+
+state 66
+
+    (83) Factor -> ( . Expression )
+    (60) Expression -> . SimpleExpression RelationalOperator Expression
+    (61) Expression -> . SimpleExpression
+    (68) SimpleExpression -> . Sign Term SecondPriorityOperator SimpleExpression
+    (69) SimpleExpression -> . Term SecondPriorityOperator SimpleExpression
+    (70) SimpleExpression -> . Term
+    (74) Sign -> . +
+    (75) Sign -> . -
+    (76) Term -> . Factor FirstPriorityOperator Term
+    (77) Term -> . Factor
+    (83) Factor -> . ( Expression )
+    (84) Factor -> . Variable
+    (85) Factor -> . UnsignedConstant
+    (86) Factor -> . FunctionDesignator
+    (87) Factor -> . NOT Factor
+    (88) Factor -> . TRUE
+    (89) Factor -> . FALSE
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (92) UnsignedConstant -> . UnsignedNumber
+    (93) UnsignedConstant -> . string
+    (94) UnsignedConstant -> . char
+    (90) FunctionDesignator -> . identifier ( ListArgs )
+    (91) FunctionDesignator -> . identifier ( )
+    (98) UnsignedNumber -> . num_int
+    (99) UnsignedNumber -> . num_real
+
+    +               shift and go to state 63
+    -               shift and go to state 64
+    (               shift and go to state 66
+    NOT             shift and go to state 70
+    TRUE            shift and go to state 71
+    FALSE           shift and go to state 72
+    identifier      shift and go to state 73
+    string          shift and go to state 75
+    char            shift and go to state 76
+    num_int         shift and go to state 77
+    num_real        shift and go to state 78
+
+    Expression                     shift and go to state 122
+    SimpleExpression               shift and go to state 60
+    Sign                           shift and go to state 61
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 65
+    Variable                       shift and go to state 67
+    UnsignedConstant               shift and go to state 68
+    FunctionDesignator             shift and go to state 69
+    UnsignedNumber                 shift and go to state 74
+
+state 67
+
+    (84) Factor -> Variable .
+
+    *               reduce using rule 84 (Factor -> Variable .)
+    /               reduce using rule 84 (Factor -> Variable .)
+    DIV             reduce using rule 84 (Factor -> Variable .)
+    MOD             reduce using rule 84 (Factor -> Variable .)
+    AND             reduce using rule 84 (Factor -> Variable .)
+    +               reduce using rule 84 (Factor -> Variable .)
+    -               reduce using rule 84 (Factor -> Variable .)
+    OR              reduce using rule 84 (Factor -> Variable .)
+    EQUAL           reduce using rule 84 (Factor -> Variable .)
+    GREATER_THAN    reduce using rule 84 (Factor -> Variable .)
+    LESS_THAN       reduce using rule 84 (Factor -> Variable .)
+    NOT_EQUAL       reduce using rule 84 (Factor -> Variable .)
+    GREATER_THAN_EQUAL reduce using rule 84 (Factor -> Variable .)
+    LESS_THAN_EQUAL reduce using rule 84 (Factor -> Variable .)
+    THEN            reduce using rule 84 (Factor -> Variable .)
+    DO              reduce using rule 84 (Factor -> Variable .)
+    ;               reduce using rule 84 (Factor -> Variable .)
+    END             reduce using rule 84 (Factor -> Variable .)
+    ELSE            reduce using rule 84 (Factor -> Variable .)
+    )               reduce using rule 84 (Factor -> Variable .)
+    ,               reduce using rule 84 (Factor -> Variable .)
+    ]               reduce using rule 84 (Factor -> Variable .)
+    TO              reduce using rule 84 (Factor -> Variable .)
+    DOWNTO          reduce using rule 84 (Factor -> Variable .)
+
+
+state 68
+
+    (85) Factor -> UnsignedConstant .
+
+    *               reduce using rule 85 (Factor -> UnsignedConstant .)
+    /               reduce using rule 85 (Factor -> UnsignedConstant .)
+    DIV             reduce using rule 85 (Factor -> UnsignedConstant .)
+    MOD             reduce using rule 85 (Factor -> UnsignedConstant .)
+    AND             reduce using rule 85 (Factor -> UnsignedConstant .)
+    +               reduce using rule 85 (Factor -> UnsignedConstant .)
+    -               reduce using rule 85 (Factor -> UnsignedConstant .)
+    OR              reduce using rule 85 (Factor -> UnsignedConstant .)
+    EQUAL           reduce using rule 85 (Factor -> UnsignedConstant .)
+    GREATER_THAN    reduce using rule 85 (Factor -> UnsignedConstant .)
+    LESS_THAN       reduce using rule 85 (Factor -> UnsignedConstant .)
+    NOT_EQUAL       reduce using rule 85 (Factor -> UnsignedConstant .)
+    GREATER_THAN_EQUAL reduce using rule 85 (Factor -> UnsignedConstant .)
+    LESS_THAN_EQUAL reduce using rule 85 (Factor -> UnsignedConstant .)
+    THEN            reduce using rule 85 (Factor -> UnsignedConstant .)
+    DO              reduce using rule 85 (Factor -> UnsignedConstant .)
+    ;               reduce using rule 85 (Factor -> UnsignedConstant .)
+    END             reduce using rule 85 (Factor -> UnsignedConstant .)
+    ELSE            reduce using rule 85 (Factor -> UnsignedConstant .)
+    )               reduce using rule 85 (Factor -> UnsignedConstant .)
+    ,               reduce using rule 85 (Factor -> UnsignedConstant .)
+    ]               reduce using rule 85 (Factor -> UnsignedConstant .)
+    TO              reduce using rule 85 (Factor -> UnsignedConstant .)
+    DOWNTO          reduce using rule 85 (Factor -> UnsignedConstant .)
+
+
+state 69
+
+    (86) Factor -> FunctionDesignator .
+
+    *               reduce using rule 86 (Factor -> FunctionDesignator .)
+    /               reduce using rule 86 (Factor -> FunctionDesignator .)
+    DIV             reduce using rule 86 (Factor -> FunctionDesignator .)
+    MOD             reduce using rule 86 (Factor -> FunctionDesignator .)
+    AND             reduce using rule 86 (Factor -> FunctionDesignator .)
+    +               reduce using rule 86 (Factor -> FunctionDesignator .)
+    -               reduce using rule 86 (Factor -> FunctionDesignator .)
+    OR              reduce using rule 86 (Factor -> FunctionDesignator .)
+    EQUAL           reduce using rule 86 (Factor -> FunctionDesignator .)
+    GREATER_THAN    reduce using rule 86 (Factor -> FunctionDesignator .)
+    LESS_THAN       reduce using rule 86 (Factor -> FunctionDesignator .)
+    NOT_EQUAL       reduce using rule 86 (Factor -> FunctionDesignator .)
+    GREATER_THAN_EQUAL reduce using rule 86 (Factor -> FunctionDesignator .)
+    LESS_THAN_EQUAL reduce using rule 86 (Factor -> FunctionDesignator .)
+    THEN            reduce using rule 86 (Factor -> FunctionDesignator .)
+    DO              reduce using rule 86 (Factor -> FunctionDesignator .)
+    ;               reduce using rule 86 (Factor -> FunctionDesignator .)
+    END             reduce using rule 86 (Factor -> FunctionDesignator .)
+    ELSE            reduce using rule 86 (Factor -> FunctionDesignator .)
+    )               reduce using rule 86 (Factor -> FunctionDesignator .)
+    ,               reduce using rule 86 (Factor -> FunctionDesignator .)
+    ]               reduce using rule 86 (Factor -> FunctionDesignator .)
+    TO              reduce using rule 86 (Factor -> FunctionDesignator .)
+    DOWNTO          reduce using rule 86 (Factor -> FunctionDesignator .)
+
+
+state 70
+
+    (87) Factor -> NOT . Factor
+    (83) Factor -> . ( Expression )
+    (84) Factor -> . Variable
+    (85) Factor -> . UnsignedConstant
+    (86) Factor -> . FunctionDesignator
+    (87) Factor -> . NOT Factor
+    (88) Factor -> . TRUE
+    (89) Factor -> . FALSE
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (92) UnsignedConstant -> . UnsignedNumber
+    (93) UnsignedConstant -> . string
+    (94) UnsignedConstant -> . char
+    (90) FunctionDesignator -> . identifier ( ListArgs )
+    (91) FunctionDesignator -> . identifier ( )
+    (98) UnsignedNumber -> . num_int
+    (99) UnsignedNumber -> . num_real
+
+    (               shift and go to state 66
+    NOT             shift and go to state 70
+    TRUE            shift and go to state 71
+    FALSE           shift and go to state 72
+    identifier      shift and go to state 73
+    string          shift and go to state 75
+    char            shift and go to state 76
+    num_int         shift and go to state 77
+    num_real        shift and go to state 78
+
+    Factor                         shift and go to state 123
+    Variable                       shift and go to state 67
+    UnsignedConstant               shift and go to state 68
+    FunctionDesignator             shift and go to state 69
+    UnsignedNumber                 shift and go to state 74
+
+state 71
+
+    (88) Factor -> TRUE .
+
+    *               reduce using rule 88 (Factor -> TRUE .)
+    /               reduce using rule 88 (Factor -> TRUE .)
+    DIV             reduce using rule 88 (Factor -> TRUE .)
+    MOD             reduce using rule 88 (Factor -> TRUE .)
+    AND             reduce using rule 88 (Factor -> TRUE .)
+    +               reduce using rule 88 (Factor -> TRUE .)
+    -               reduce using rule 88 (Factor -> TRUE .)
+    OR              reduce using rule 88 (Factor -> TRUE .)
+    EQUAL           reduce using rule 88 (Factor -> TRUE .)
+    GREATER_THAN    reduce using rule 88 (Factor -> TRUE .)
+    LESS_THAN       reduce using rule 88 (Factor -> TRUE .)
+    NOT_EQUAL       reduce using rule 88 (Factor -> TRUE .)
+    GREATER_THAN_EQUAL reduce using rule 88 (Factor -> TRUE .)
+    LESS_THAN_EQUAL reduce using rule 88 (Factor -> TRUE .)
+    THEN            reduce using rule 88 (Factor -> TRUE .)
+    DO              reduce using rule 88 (Factor -> TRUE .)
+    ;               reduce using rule 88 (Factor -> TRUE .)
+    END             reduce using rule 88 (Factor -> TRUE .)
+    ELSE            reduce using rule 88 (Factor -> TRUE .)
+    )               reduce using rule 88 (Factor -> TRUE .)
+    ,               reduce using rule 88 (Factor -> TRUE .)
+    ]               reduce using rule 88 (Factor -> TRUE .)
+    TO              reduce using rule 88 (Factor -> TRUE .)
+    DOWNTO          reduce using rule 88 (Factor -> TRUE .)
+
+
+state 72
+
+    (89) Factor -> FALSE .
+
+    *               reduce using rule 89 (Factor -> FALSE .)
+    /               reduce using rule 89 (Factor -> FALSE .)
+    DIV             reduce using rule 89 (Factor -> FALSE .)
+    MOD             reduce using rule 89 (Factor -> FALSE .)
+    AND             reduce using rule 89 (Factor -> FALSE .)
+    +               reduce using rule 89 (Factor -> FALSE .)
+    -               reduce using rule 89 (Factor -> FALSE .)
+    OR              reduce using rule 89 (Factor -> FALSE .)
+    EQUAL           reduce using rule 89 (Factor -> FALSE .)
+    GREATER_THAN    reduce using rule 89 (Factor -> FALSE .)
+    LESS_THAN       reduce using rule 89 (Factor -> FALSE .)
+    NOT_EQUAL       reduce using rule 89 (Factor -> FALSE .)
+    GREATER_THAN_EQUAL reduce using rule 89 (Factor -> FALSE .)
+    LESS_THAN_EQUAL reduce using rule 89 (Factor -> FALSE .)
+    THEN            reduce using rule 89 (Factor -> FALSE .)
+    DO              reduce using rule 89 (Factor -> FALSE .)
+    ;               reduce using rule 89 (Factor -> FALSE .)
+    END             reduce using rule 89 (Factor -> FALSE .)
+    ELSE            reduce using rule 89 (Factor -> FALSE .)
+    )               reduce using rule 89 (Factor -> FALSE .)
+    ,               reduce using rule 89 (Factor -> FALSE .)
+    ]               reduce using rule 89 (Factor -> FALSE .)
+    TO              reduce using rule 89 (Factor -> FALSE .)
+    DOWNTO          reduce using rule 89 (Factor -> FALSE .)
+
+
+state 73
+
+    (100) Variable -> identifier .
+    (101) Variable -> identifier . [ ListExpressions ]
+    (90) FunctionDesignator -> identifier . ( ListArgs )
+    (91) FunctionDesignator -> identifier . ( )
+
+    *               reduce using rule 100 (Variable -> identifier .)
+    /               reduce using rule 100 (Variable -> identifier .)
+    DIV             reduce using rule 100 (Variable -> identifier .)
+    MOD             reduce using rule 100 (Variable -> identifier .)
+    AND             reduce using rule 100 (Variable -> identifier .)
+    +               reduce using rule 100 (Variable -> identifier .)
+    -               reduce using rule 100 (Variable -> identifier .)
+    OR              reduce using rule 100 (Variable -> identifier .)
+    EQUAL           reduce using rule 100 (Variable -> identifier .)
+    GREATER_THAN    reduce using rule 100 (Variable -> identifier .)
+    LESS_THAN       reduce using rule 100 (Variable -> identifier .)
+    NOT_EQUAL       reduce using rule 100 (Variable -> identifier .)
+    GREATER_THAN_EQUAL reduce using rule 100 (Variable -> identifier .)
+    LESS_THAN_EQUAL reduce using rule 100 (Variable -> identifier .)
+    THEN            reduce using rule 100 (Variable -> identifier .)
+    DO              reduce using rule 100 (Variable -> identifier .)
+    ;               reduce using rule 100 (Variable -> identifier .)
+    END             reduce using rule 100 (Variable -> identifier .)
+    ELSE            reduce using rule 100 (Variable -> identifier .)
+    )               reduce using rule 100 (Variable -> identifier .)
+    ,               reduce using rule 100 (Variable -> identifier .)
+    ]               reduce using rule 100 (Variable -> identifier .)
+    TO              reduce using rule 100 (Variable -> identifier .)
+    DOWNTO          reduce using rule 100 (Variable -> identifier .)
+    [               shift and go to state 58
+    (               shift and go to state 124
+
+
+state 74
+
+    (92) UnsignedConstant -> UnsignedNumber .
+
+    *               reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+    /               reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+    DIV             reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+    MOD             reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+    AND             reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+    +               reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+    -               reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+    OR              reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+    EQUAL           reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+    GREATER_THAN    reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+    LESS_THAN       reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+    NOT_EQUAL       reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+    GREATER_THAN_EQUAL reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+    LESS_THAN_EQUAL reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+    THEN            reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+    DO              reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+    ;               reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+    END             reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+    ELSE            reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+    )               reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+    ,               reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+    ]               reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+    TO              reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+    DOWNTO          reduce using rule 92 (UnsignedConstant -> UnsignedNumber .)
+
+
+state 75
+
+    (93) UnsignedConstant -> string .
+
+    *               reduce using rule 93 (UnsignedConstant -> string .)
+    /               reduce using rule 93 (UnsignedConstant -> string .)
+    DIV             reduce using rule 93 (UnsignedConstant -> string .)
+    MOD             reduce using rule 93 (UnsignedConstant -> string .)
+    AND             reduce using rule 93 (UnsignedConstant -> string .)
+    +               reduce using rule 93 (UnsignedConstant -> string .)
+    -               reduce using rule 93 (UnsignedConstant -> string .)
+    OR              reduce using rule 93 (UnsignedConstant -> string .)
+    EQUAL           reduce using rule 93 (UnsignedConstant -> string .)
+    GREATER_THAN    reduce using rule 93 (UnsignedConstant -> string .)
+    LESS_THAN       reduce using rule 93 (UnsignedConstant -> string .)
+    NOT_EQUAL       reduce using rule 93 (UnsignedConstant -> string .)
+    GREATER_THAN_EQUAL reduce using rule 93 (UnsignedConstant -> string .)
+    LESS_THAN_EQUAL reduce using rule 93 (UnsignedConstant -> string .)
+    THEN            reduce using rule 93 (UnsignedConstant -> string .)
+    DO              reduce using rule 93 (UnsignedConstant -> string .)
+    ;               reduce using rule 93 (UnsignedConstant -> string .)
+    END             reduce using rule 93 (UnsignedConstant -> string .)
+    ELSE            reduce using rule 93 (UnsignedConstant -> string .)
+    )               reduce using rule 93 (UnsignedConstant -> string .)
+    ,               reduce using rule 93 (UnsignedConstant -> string .)
+    ]               reduce using rule 93 (UnsignedConstant -> string .)
+    TO              reduce using rule 93 (UnsignedConstant -> string .)
+    DOWNTO          reduce using rule 93 (UnsignedConstant -> string .)
+
+
+state 76
+
+    (94) UnsignedConstant -> char .
+
+    *               reduce using rule 94 (UnsignedConstant -> char .)
+    /               reduce using rule 94 (UnsignedConstant -> char .)
+    DIV             reduce using rule 94 (UnsignedConstant -> char .)
+    MOD             reduce using rule 94 (UnsignedConstant -> char .)
+    AND             reduce using rule 94 (UnsignedConstant -> char .)
+    +               reduce using rule 94 (UnsignedConstant -> char .)
+    -               reduce using rule 94 (UnsignedConstant -> char .)
+    OR              reduce using rule 94 (UnsignedConstant -> char .)
+    EQUAL           reduce using rule 94 (UnsignedConstant -> char .)
+    GREATER_THAN    reduce using rule 94 (UnsignedConstant -> char .)
+    LESS_THAN       reduce using rule 94 (UnsignedConstant -> char .)
+    NOT_EQUAL       reduce using rule 94 (UnsignedConstant -> char .)
+    GREATER_THAN_EQUAL reduce using rule 94 (UnsignedConstant -> char .)
+    LESS_THAN_EQUAL reduce using rule 94 (UnsignedConstant -> char .)
+    THEN            reduce using rule 94 (UnsignedConstant -> char .)
+    DO              reduce using rule 94 (UnsignedConstant -> char .)
+    ;               reduce using rule 94 (UnsignedConstant -> char .)
+    END             reduce using rule 94 (UnsignedConstant -> char .)
+    ELSE            reduce using rule 94 (UnsignedConstant -> char .)
+    )               reduce using rule 94 (UnsignedConstant -> char .)
+    ,               reduce using rule 94 (UnsignedConstant -> char .)
+    ]               reduce using rule 94 (UnsignedConstant -> char .)
+    TO              reduce using rule 94 (UnsignedConstant -> char .)
+    DOWNTO          reduce using rule 94 (UnsignedConstant -> char .)
+
+
+state 77
+
+    (98) UnsignedNumber -> num_int .
+
+    *               reduce using rule 98 (UnsignedNumber -> num_int .)
+    /               reduce using rule 98 (UnsignedNumber -> num_int .)
+    DIV             reduce using rule 98 (UnsignedNumber -> num_int .)
+    MOD             reduce using rule 98 (UnsignedNumber -> num_int .)
+    AND             reduce using rule 98 (UnsignedNumber -> num_int .)
+    +               reduce using rule 98 (UnsignedNumber -> num_int .)
+    -               reduce using rule 98 (UnsignedNumber -> num_int .)
+    OR              reduce using rule 98 (UnsignedNumber -> num_int .)
+    EQUAL           reduce using rule 98 (UnsignedNumber -> num_int .)
+    GREATER_THAN    reduce using rule 98 (UnsignedNumber -> num_int .)
+    LESS_THAN       reduce using rule 98 (UnsignedNumber -> num_int .)
+    NOT_EQUAL       reduce using rule 98 (UnsignedNumber -> num_int .)
+    GREATER_THAN_EQUAL reduce using rule 98 (UnsignedNumber -> num_int .)
+    LESS_THAN_EQUAL reduce using rule 98 (UnsignedNumber -> num_int .)
+    THEN            reduce using rule 98 (UnsignedNumber -> num_int .)
+    DO              reduce using rule 98 (UnsignedNumber -> num_int .)
+    ;               reduce using rule 98 (UnsignedNumber -> num_int .)
+    END             reduce using rule 98 (UnsignedNumber -> num_int .)
+    ELSE            reduce using rule 98 (UnsignedNumber -> num_int .)
+    )               reduce using rule 98 (UnsignedNumber -> num_int .)
+    ,               reduce using rule 98 (UnsignedNumber -> num_int .)
+    ]               reduce using rule 98 (UnsignedNumber -> num_int .)
+    TO              reduce using rule 98 (UnsignedNumber -> num_int .)
+    DOWNTO          reduce using rule 98 (UnsignedNumber -> num_int .)
+
+
+state 78
+
+    (99) UnsignedNumber -> num_real .
+
+    *               reduce using rule 99 (UnsignedNumber -> num_real .)
+    /               reduce using rule 99 (UnsignedNumber -> num_real .)
+    DIV             reduce using rule 99 (UnsignedNumber -> num_real .)
+    MOD             reduce using rule 99 (UnsignedNumber -> num_real .)
+    AND             reduce using rule 99 (UnsignedNumber -> num_real .)
+    +               reduce using rule 99 (UnsignedNumber -> num_real .)
+    -               reduce using rule 99 (UnsignedNumber -> num_real .)
+    OR              reduce using rule 99 (UnsignedNumber -> num_real .)
+    EQUAL           reduce using rule 99 (UnsignedNumber -> num_real .)
+    GREATER_THAN    reduce using rule 99 (UnsignedNumber -> num_real .)
+    LESS_THAN       reduce using rule 99 (UnsignedNumber -> num_real .)
+    NOT_EQUAL       reduce using rule 99 (UnsignedNumber -> num_real .)
+    GREATER_THAN_EQUAL reduce using rule 99 (UnsignedNumber -> num_real .)
+    LESS_THAN_EQUAL reduce using rule 99 (UnsignedNumber -> num_real .)
+    THEN            reduce using rule 99 (UnsignedNumber -> num_real .)
+    DO              reduce using rule 99 (UnsignedNumber -> num_real .)
+    ;               reduce using rule 99 (UnsignedNumber -> num_real .)
+    END             reduce using rule 99 (UnsignedNumber -> num_real .)
+    ELSE            reduce using rule 99 (UnsignedNumber -> num_real .)
+    )               reduce using rule 99 (UnsignedNumber -> num_real .)
+    ,               reduce using rule 99 (UnsignedNumber -> num_real .)
+    ]               reduce using rule 99 (UnsignedNumber -> num_real .)
+    TO              reduce using rule 99 (UnsignedNumber -> num_real .)
+    DOWNTO          reduce using rule 99 (UnsignedNumber -> num_real .)
+
+
+state 79
+
+    (57) WhileStatement -> WHILE Expression . DO Statement
+
+    DO              shift and go to state 125
+
+
+state 80
+
+    (58) ForStatement -> FOR identifier . ASSIGN Expression TO Expression DO Statement
+    (59) ForStatement -> FOR identifier . ASSIGN Expression DOWNTO Expression DO Statement
+
+    ASSIGN          shift and go to state 126
+
+
+state 81
+
+    (12) ListVarsDeclaration -> ListVarsDeclaration ElemVarsDeclaration ; .
+
+    identifier      reduce using rule 12 (ListVarsDeclaration -> ListVarsDeclaration ElemVarsDeclaration ; .)
+    BEGIN           reduce using rule 12 (ListVarsDeclaration -> ListVarsDeclaration ElemVarsDeclaration ; .)
+    VAR             reduce using rule 12 (ListVarsDeclaration -> ListVarsDeclaration ElemVarsDeclaration ; .)
+    PROCEDURE       reduce using rule 12 (ListVarsDeclaration -> ListVarsDeclaration ElemVarsDeclaration ; .)
+    FUNCTION        reduce using rule 12 (ListVarsDeclaration -> ListVarsDeclaration ElemVarsDeclaration ; .)
+
+
+state 82
+
+    (14) ElemVarsDeclaration -> IdentifierList COLON identifier .
+
+    ;               reduce using rule 14 (ElemVarsDeclaration -> IdentifierList COLON identifier .)
+
+
+state 83
+
+    (15) ElemVarsDeclaration -> IdentifierList COLON Array .
+
+    ;               reduce using rule 15 (ElemVarsDeclaration -> IdentifierList COLON Array .)
+
+
+state 84
+
+    (16) Array -> ARRAY . [ Constant . . Constant ] OF identifier
+
+    [               shift and go to state 127
+
+
+state 85
+
+    (17) IdentifierList -> IdentifierList , identifier .
+
+    COLON           reduce using rule 17 (IdentifierList -> IdentifierList , identifier .)
+    ,               reduce using rule 17 (IdentifierList -> IdentifierList , identifier .)
+
+
+state 86
+
+    (19) ProcedureDeclarationPart -> PROCEDURE identifier ListParametersDeclaration ; . Content ;
+    (6) Content -> . Declarations CompoundStatement
+    (7) Declarations -> . Declarations VariableDeclarationPart
+    (8) Declarations -> . Declarations ProcedureDeclarationPart
+    (9) Declarations -> . Declarations FunctionDeclarationPart
+    (10) Declarations -> .
+
+    BEGIN           reduce using rule 10 (Declarations -> .)
+    VAR             reduce using rule 10 (Declarations -> .)
+    PROCEDURE       reduce using rule 10 (Declarations -> .)
+    FUNCTION        reduce using rule 10 (Declarations -> .)
+
+    Content                        shift and go to state 128
+    Declarations                   shift and go to state 5
+
+state 87
+
+    (21) ListParametersDeclaration -> ( ListOfListParameters . )
+    (22) ListOfListParameters -> ListOfListParameters . ; ListParameters
+    (23) ListOfListParameters -> ListOfListParameters . ; VAR ListParameters
+
+    )               shift and go to state 129
+    ;               shift and go to state 130
+
+
+state 88
+
+    (27) ListParametersDeclaration -> ( ) .
+
+    ;               reduce using rule 27 (ListParametersDeclaration -> ( ) .)
+    COLON           reduce using rule 27 (ListParametersDeclaration -> ( ) .)
+
+
+state 89
+
+    (24) ListOfListParameters -> ListParameters .
+    (28) ListParameters -> ListParameters . , ElemParameter
+
+    )               reduce using rule 24 (ListOfListParameters -> ListParameters .)
+    ;               reduce using rule 24 (ListOfListParameters -> ListParameters .)
+    ,               shift and go to state 131
+
+
+state 90
+
+    (25) ListOfListParameters -> VAR . ListParameters
+    (28) ListParameters -> . ListParameters , ElemParameter
+    (29) ListParameters -> . ElemParameter
+    (30) ElemParameter -> . IdentifierList COLON ARRAY OF identifier
+    (31) ElemParameter -> . IdentifierList COLON identifier
+    (17) IdentifierList -> . IdentifierList , identifier
+    (18) IdentifierList -> . identifier
+
+    identifier      shift and go to state 23
+
+    ListParameters                 shift and go to state 132
+    ElemParameter                  shift and go to state 91
+    IdentifierList                 shift and go to state 92
+
+state 91
+
+    (29) ListParameters -> ElemParameter .
+
+    ,               reduce using rule 29 (ListParameters -> ElemParameter .)
+    )               reduce using rule 29 (ListParameters -> ElemParameter .)
+    ;               reduce using rule 29 (ListParameters -> ElemParameter .)
+
+
+state 92
+
+    (30) ElemParameter -> IdentifierList . COLON ARRAY OF identifier
+    (31) ElemParameter -> IdentifierList . COLON identifier
+    (17) IdentifierList -> IdentifierList . , identifier
+
+    COLON           shift and go to state 133
+    ,               shift and go to state 49
+
+
+state 93
+
+    (20) FunctionDeclarationPart -> FUNCTION identifier ListParametersDeclaration COLON . identifier ; Content ;
+
+    identifier      shift and go to state 134
+
+
+state 94
+
+    (2) Header -> PROGRAM identifier ( ListH ) ; .
+
+    BEGIN           reduce using rule 2 (Header -> PROGRAM identifier ( ListH ) ; .)
+    VAR             reduce using rule 2 (Header -> PROGRAM identifier ( ListH ) ; .)
+    PROCEDURE       reduce using rule 2 (Header -> PROGRAM identifier ( ListH ) ; .)
+    FUNCTION        reduce using rule 2 (Header -> PROGRAM identifier ( ListH ) ; .)
+
+
+state 95
+
+    (4) ListH -> ListH , identifier .
+
+    )               reduce using rule 4 (ListH -> ListH , identifier .)
+    ,               reduce using rule 4 (ListH -> ListH , identifier .)
+
+
+state 96
+
+    (42) AssignmentStatement -> Variable ASSIGN Expression .
+
+    ;               reduce using rule 42 (AssignmentStatement -> Variable ASSIGN Expression .)
+    END             reduce using rule 42 (AssignmentStatement -> Variable ASSIGN Expression .)
+    ELSE            reduce using rule 42 (AssignmentStatement -> Variable ASSIGN Expression .)
+
+
+state 97
+
+    (43) ProcedureStatement -> identifier ( ListArgs . )
+    (46) ListArgs -> ListArgs . , Arg
+
+    )               shift and go to state 135
+    ,               shift and go to state 136
+
+
+state 98
+
+    (44) ProcedureStatement -> identifier ( ) .
+
+    ;               reduce using rule 44 (ProcedureStatement -> identifier ( ) .)
+    END             reduce using rule 44 (ProcedureStatement -> identifier ( ) .)
+    ELSE            reduce using rule 44 (ProcedureStatement -> identifier ( ) .)
+
+
+state 99
+
+    (47) ListArgs -> Arg .
+
+    )               reduce using rule 47 (ListArgs -> Arg .)
+    ,               reduce using rule 47 (ListArgs -> Arg .)
+
+
+state 100
+
+    (48) Arg -> Expression .
+
+    )               reduce using rule 48 (Arg -> Expression .)
+    ,               reduce using rule 48 (Arg -> Expression .)
+
+
+state 101
+
+    (101) Variable -> identifier [ ListExpressions . ]
+    (102) ListExpressions -> ListExpressions . , Expression
+
+    ]               shift and go to state 137
+    ,               shift and go to state 138
+
+
+state 102
+
+    (103) ListExpressions -> Expression .
+
+    ]               reduce using rule 103 (ListExpressions -> Expression .)
+    ,               reduce using rule 103 (ListExpressions -> Expression .)
+
+
+state 103
+
+    (53) IfStatement -> IF Expression THEN . Statement
+    (54) IfStatement -> IF Expression THEN . Statement ELSE Statement
+    (38) Statement -> . SimpleStatement
+    (39) Statement -> . StructeredStatement
+    (40) SimpleStatement -> . AssignmentStatement
+    (41) SimpleStatement -> . ProcedureStatement
+    (49) StructeredStatement -> . CompoundStatement
+    (50) StructeredStatement -> . ConditionalStatement
+    (51) StructeredStatement -> . RepetitiveStatement
+    (42) AssignmentStatement -> . Variable ASSIGN Expression
+    (43) ProcedureStatement -> . identifier ( ListArgs )
+    (44) ProcedureStatement -> . identifier ( )
+    (45) ProcedureStatement -> . identifier
+    (32) CompoundStatement -> . BEGIN ListStatement END
+    (52) ConditionalStatement -> . IfStatement
+    (55) RepetitiveStatement -> . WhileStatement
+    (56) RepetitiveStatement -> . ForStatement
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (53) IfStatement -> . IF Expression THEN Statement
+    (54) IfStatement -> . IF Expression THEN Statement ELSE Statement
+    (57) WhileStatement -> . WHILE Expression DO Statement
+    (58) ForStatement -> . FOR identifier ASSIGN Expression TO Expression DO Statement
+    (59) ForStatement -> . FOR identifier ASSIGN Expression DOWNTO Expression DO Statement
+
+    identifier      shift and go to state 39
+    BEGIN           shift and go to state 12
+    IF              shift and go to state 43
+    WHILE           shift and go to state 44
+    FOR             shift and go to state 45
+
+    Statement                      shift and go to state 139
+    SimpleStatement                shift and go to state 31
+    StructeredStatement            shift and go to state 32
+    AssignmentStatement            shift and go to state 33
+    ProcedureStatement             shift and go to state 34
+    CompoundStatement              shift and go to state 35
+    ConditionalStatement           shift and go to state 36
+    RepetitiveStatement            shift and go to state 37
+    Variable                       shift and go to state 38
+    IfStatement                    shift and go to state 40
+    WhileStatement                 shift and go to state 41
+    ForStatement                   shift and go to state 42
+
+state 104
+
+    (60) Expression -> SimpleExpression RelationalOperator . Expression
+    (60) Expression -> . SimpleExpression RelationalOperator Expression
+    (61) Expression -> . SimpleExpression
+    (68) SimpleExpression -> . Sign Term SecondPriorityOperator SimpleExpression
+    (69) SimpleExpression -> . Term SecondPriorityOperator SimpleExpression
+    (70) SimpleExpression -> . Term
+    (74) Sign -> . +
+    (75) Sign -> . -
+    (76) Term -> . Factor FirstPriorityOperator Term
+    (77) Term -> . Factor
+    (83) Factor -> . ( Expression )
+    (84) Factor -> . Variable
+    (85) Factor -> . UnsignedConstant
+    (86) Factor -> . FunctionDesignator
+    (87) Factor -> . NOT Factor
+    (88) Factor -> . TRUE
+    (89) Factor -> . FALSE
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (92) UnsignedConstant -> . UnsignedNumber
+    (93) UnsignedConstant -> . string
+    (94) UnsignedConstant -> . char
+    (90) FunctionDesignator -> . identifier ( ListArgs )
+    (91) FunctionDesignator -> . identifier ( )
+    (98) UnsignedNumber -> . num_int
+    (99) UnsignedNumber -> . num_real
+
+    +               shift and go to state 63
+    -               shift and go to state 64
+    (               shift and go to state 66
+    NOT             shift and go to state 70
+    TRUE            shift and go to state 71
+    FALSE           shift and go to state 72
+    identifier      shift and go to state 73
+    string          shift and go to state 75
+    char            shift and go to state 76
+    num_int         shift and go to state 77
+    num_real        shift and go to state 78
+
+    SimpleExpression               shift and go to state 60
+    Expression                     shift and go to state 140
+    Sign                           shift and go to state 61
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 65
+    Variable                       shift and go to state 67
+    UnsignedConstant               shift and go to state 68
+    FunctionDesignator             shift and go to state 69
+    UnsignedNumber                 shift and go to state 74
+
+state 105
+
+    (62) RelationalOperator -> EQUAL .
+
+    +               reduce using rule 62 (RelationalOperator -> EQUAL .)
+    -               reduce using rule 62 (RelationalOperator -> EQUAL .)
+    (               reduce using rule 62 (RelationalOperator -> EQUAL .)
+    NOT             reduce using rule 62 (RelationalOperator -> EQUAL .)
+    TRUE            reduce using rule 62 (RelationalOperator -> EQUAL .)
+    FALSE           reduce using rule 62 (RelationalOperator -> EQUAL .)
+    identifier      reduce using rule 62 (RelationalOperator -> EQUAL .)
+    string          reduce using rule 62 (RelationalOperator -> EQUAL .)
+    char            reduce using rule 62 (RelationalOperator -> EQUAL .)
+    num_int         reduce using rule 62 (RelationalOperator -> EQUAL .)
+    num_real        reduce using rule 62 (RelationalOperator -> EQUAL .)
+
+
+state 106
+
+    (63) RelationalOperator -> GREATER_THAN .
+
+    +               reduce using rule 63 (RelationalOperator -> GREATER_THAN .)
+    -               reduce using rule 63 (RelationalOperator -> GREATER_THAN .)
+    (               reduce using rule 63 (RelationalOperator -> GREATER_THAN .)
+    NOT             reduce using rule 63 (RelationalOperator -> GREATER_THAN .)
+    TRUE            reduce using rule 63 (RelationalOperator -> GREATER_THAN .)
+    FALSE           reduce using rule 63 (RelationalOperator -> GREATER_THAN .)
+    identifier      reduce using rule 63 (RelationalOperator -> GREATER_THAN .)
+    string          reduce using rule 63 (RelationalOperator -> GREATER_THAN .)
+    char            reduce using rule 63 (RelationalOperator -> GREATER_THAN .)
+    num_int         reduce using rule 63 (RelationalOperator -> GREATER_THAN .)
+    num_real        reduce using rule 63 (RelationalOperator -> GREATER_THAN .)
+
+
+state 107
+
+    (64) RelationalOperator -> LESS_THAN .
+
+    +               reduce using rule 64 (RelationalOperator -> LESS_THAN .)
+    -               reduce using rule 64 (RelationalOperator -> LESS_THAN .)
+    (               reduce using rule 64 (RelationalOperator -> LESS_THAN .)
+    NOT             reduce using rule 64 (RelationalOperator -> LESS_THAN .)
+    TRUE            reduce using rule 64 (RelationalOperator -> LESS_THAN .)
+    FALSE           reduce using rule 64 (RelationalOperator -> LESS_THAN .)
+    identifier      reduce using rule 64 (RelationalOperator -> LESS_THAN .)
+    string          reduce using rule 64 (RelationalOperator -> LESS_THAN .)
+    char            reduce using rule 64 (RelationalOperator -> LESS_THAN .)
+    num_int         reduce using rule 64 (RelationalOperator -> LESS_THAN .)
+    num_real        reduce using rule 64 (RelationalOperator -> LESS_THAN .)
+
+
+state 108
+
+    (65) RelationalOperator -> NOT_EQUAL .
+
+    +               reduce using rule 65 (RelationalOperator -> NOT_EQUAL .)
+    -               reduce using rule 65 (RelationalOperator -> NOT_EQUAL .)
+    (               reduce using rule 65 (RelationalOperator -> NOT_EQUAL .)
+    NOT             reduce using rule 65 (RelationalOperator -> NOT_EQUAL .)
+    TRUE            reduce using rule 65 (RelationalOperator -> NOT_EQUAL .)
+    FALSE           reduce using rule 65 (RelationalOperator -> NOT_EQUAL .)
+    identifier      reduce using rule 65 (RelationalOperator -> NOT_EQUAL .)
+    string          reduce using rule 65 (RelationalOperator -> NOT_EQUAL .)
+    char            reduce using rule 65 (RelationalOperator -> NOT_EQUAL .)
+    num_int         reduce using rule 65 (RelationalOperator -> NOT_EQUAL .)
+    num_real        reduce using rule 65 (RelationalOperator -> NOT_EQUAL .)
+
+
+state 109
+
+    (66) RelationalOperator -> GREATER_THAN_EQUAL .
+
+    +               reduce using rule 66 (RelationalOperator -> GREATER_THAN_EQUAL .)
+    -               reduce using rule 66 (RelationalOperator -> GREATER_THAN_EQUAL .)
+    (               reduce using rule 66 (RelationalOperator -> GREATER_THAN_EQUAL .)
+    NOT             reduce using rule 66 (RelationalOperator -> GREATER_THAN_EQUAL .)
+    TRUE            reduce using rule 66 (RelationalOperator -> GREATER_THAN_EQUAL .)
+    FALSE           reduce using rule 66 (RelationalOperator -> GREATER_THAN_EQUAL .)
+    identifier      reduce using rule 66 (RelationalOperator -> GREATER_THAN_EQUAL .)
+    string          reduce using rule 66 (RelationalOperator -> GREATER_THAN_EQUAL .)
+    char            reduce using rule 66 (RelationalOperator -> GREATER_THAN_EQUAL .)
+    num_int         reduce using rule 66 (RelationalOperator -> GREATER_THAN_EQUAL .)
+    num_real        reduce using rule 66 (RelationalOperator -> GREATER_THAN_EQUAL .)
+
+
+state 110
+
+    (67) RelationalOperator -> LESS_THAN_EQUAL .
+
+    +               reduce using rule 67 (RelationalOperator -> LESS_THAN_EQUAL .)
+    -               reduce using rule 67 (RelationalOperator -> LESS_THAN_EQUAL .)
+    (               reduce using rule 67 (RelationalOperator -> LESS_THAN_EQUAL .)
+    NOT             reduce using rule 67 (RelationalOperator -> LESS_THAN_EQUAL .)
+    TRUE            reduce using rule 67 (RelationalOperator -> LESS_THAN_EQUAL .)
+    FALSE           reduce using rule 67 (RelationalOperator -> LESS_THAN_EQUAL .)
+    identifier      reduce using rule 67 (RelationalOperator -> LESS_THAN_EQUAL .)
+    string          reduce using rule 67 (RelationalOperator -> LESS_THAN_EQUAL .)
+    char            reduce using rule 67 (RelationalOperator -> LESS_THAN_EQUAL .)
+    num_int         reduce using rule 67 (RelationalOperator -> LESS_THAN_EQUAL .)
+    num_real        reduce using rule 67 (RelationalOperator -> LESS_THAN_EQUAL .)
+
+
+state 111
+
+    (68) SimpleExpression -> Sign Term . SecondPriorityOperator SimpleExpression
+    (71) SecondPriorityOperator -> . +
+    (72) SecondPriorityOperator -> . -
+    (73) SecondPriorityOperator -> . OR
+
+    +               shift and go to state 113
+    -               shift and go to state 114
+    OR              shift and go to state 115
+
+    SecondPriorityOperator         shift and go to state 141
+
+state 112
+
+    (69) SimpleExpression -> Term SecondPriorityOperator . SimpleExpression
+    (68) SimpleExpression -> . Sign Term SecondPriorityOperator SimpleExpression
+    (69) SimpleExpression -> . Term SecondPriorityOperator SimpleExpression
+    (70) SimpleExpression -> . Term
+    (74) Sign -> . +
+    (75) Sign -> . -
+    (76) Term -> . Factor FirstPriorityOperator Term
+    (77) Term -> . Factor
+    (83) Factor -> . ( Expression )
+    (84) Factor -> . Variable
+    (85) Factor -> . UnsignedConstant
+    (86) Factor -> . FunctionDesignator
+    (87) Factor -> . NOT Factor
+    (88) Factor -> . TRUE
+    (89) Factor -> . FALSE
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (92) UnsignedConstant -> . UnsignedNumber
+    (93) UnsignedConstant -> . string
+    (94) UnsignedConstant -> . char
+    (90) FunctionDesignator -> . identifier ( ListArgs )
+    (91) FunctionDesignator -> . identifier ( )
+    (98) UnsignedNumber -> . num_int
+    (99) UnsignedNumber -> . num_real
+
+    +               shift and go to state 63
+    -               shift and go to state 64
+    (               shift and go to state 66
+    NOT             shift and go to state 70
+    TRUE            shift and go to state 71
+    FALSE           shift and go to state 72
+    identifier      shift and go to state 73
+    string          shift and go to state 75
+    char            shift and go to state 76
+    num_int         shift and go to state 77
+    num_real        shift and go to state 78
+
+    Term                           shift and go to state 62
+    SimpleExpression               shift and go to state 142
+    Sign                           shift and go to state 61
+    Factor                         shift and go to state 65
+    Variable                       shift and go to state 67
+    UnsignedConstant               shift and go to state 68
+    FunctionDesignator             shift and go to state 69
+    UnsignedNumber                 shift and go to state 74
+
+state 113
+
+    (71) SecondPriorityOperator -> + .
+
+    +               reduce using rule 71 (SecondPriorityOperator -> + .)
+    -               reduce using rule 71 (SecondPriorityOperator -> + .)
+    (               reduce using rule 71 (SecondPriorityOperator -> + .)
+    NOT             reduce using rule 71 (SecondPriorityOperator -> + .)
+    TRUE            reduce using rule 71 (SecondPriorityOperator -> + .)
+    FALSE           reduce using rule 71 (SecondPriorityOperator -> + .)
+    identifier      reduce using rule 71 (SecondPriorityOperator -> + .)
+    string          reduce using rule 71 (SecondPriorityOperator -> + .)
+    char            reduce using rule 71 (SecondPriorityOperator -> + .)
+    num_int         reduce using rule 71 (SecondPriorityOperator -> + .)
+    num_real        reduce using rule 71 (SecondPriorityOperator -> + .)
+
+
+state 114
+
+    (72) SecondPriorityOperator -> - .
+
+    +               reduce using rule 72 (SecondPriorityOperator -> - .)
+    -               reduce using rule 72 (SecondPriorityOperator -> - .)
+    (               reduce using rule 72 (SecondPriorityOperator -> - .)
+    NOT             reduce using rule 72 (SecondPriorityOperator -> - .)
+    TRUE            reduce using rule 72 (SecondPriorityOperator -> - .)
+    FALSE           reduce using rule 72 (SecondPriorityOperator -> - .)
+    identifier      reduce using rule 72 (SecondPriorityOperator -> - .)
+    string          reduce using rule 72 (SecondPriorityOperator -> - .)
+    char            reduce using rule 72 (SecondPriorityOperator -> - .)
+    num_int         reduce using rule 72 (SecondPriorityOperator -> - .)
+    num_real        reduce using rule 72 (SecondPriorityOperator -> - .)
+
+
+state 115
+
+    (73) SecondPriorityOperator -> OR .
+
+    +               reduce using rule 73 (SecondPriorityOperator -> OR .)
+    -               reduce using rule 73 (SecondPriorityOperator -> OR .)
+    (               reduce using rule 73 (SecondPriorityOperator -> OR .)
+    NOT             reduce using rule 73 (SecondPriorityOperator -> OR .)
+    TRUE            reduce using rule 73 (SecondPriorityOperator -> OR .)
+    FALSE           reduce using rule 73 (SecondPriorityOperator -> OR .)
+    identifier      reduce using rule 73 (SecondPriorityOperator -> OR .)
+    string          reduce using rule 73 (SecondPriorityOperator -> OR .)
+    char            reduce using rule 73 (SecondPriorityOperator -> OR .)
+    num_int         reduce using rule 73 (SecondPriorityOperator -> OR .)
+    num_real        reduce using rule 73 (SecondPriorityOperator -> OR .)
+
+
+state 116
+
+    (76) Term -> Factor FirstPriorityOperator . Term
+    (76) Term -> . Factor FirstPriorityOperator Term
+    (77) Term -> . Factor
+    (83) Factor -> . ( Expression )
+    (84) Factor -> . Variable
+    (85) Factor -> . UnsignedConstant
+    (86) Factor -> . FunctionDesignator
+    (87) Factor -> . NOT Factor
+    (88) Factor -> . TRUE
+    (89) Factor -> . FALSE
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (92) UnsignedConstant -> . UnsignedNumber
+    (93) UnsignedConstant -> . string
+    (94) UnsignedConstant -> . char
+    (90) FunctionDesignator -> . identifier ( ListArgs )
+    (91) FunctionDesignator -> . identifier ( )
+    (98) UnsignedNumber -> . num_int
+    (99) UnsignedNumber -> . num_real
+
+    (               shift and go to state 66
+    NOT             shift and go to state 70
+    TRUE            shift and go to state 71
+    FALSE           shift and go to state 72
+    identifier      shift and go to state 73
+    string          shift and go to state 75
+    char            shift and go to state 76
+    num_int         shift and go to state 77
+    num_real        shift and go to state 78
+
+    Factor                         shift and go to state 65
+    Term                           shift and go to state 143
+    Variable                       shift and go to state 67
+    UnsignedConstant               shift and go to state 68
+    FunctionDesignator             shift and go to state 69
+    UnsignedNumber                 shift and go to state 74
+
+state 117
+
+    (78) FirstPriorityOperator -> * .
+
+    (               reduce using rule 78 (FirstPriorityOperator -> * .)
+    NOT             reduce using rule 78 (FirstPriorityOperator -> * .)
+    TRUE            reduce using rule 78 (FirstPriorityOperator -> * .)
+    FALSE           reduce using rule 78 (FirstPriorityOperator -> * .)
+    identifier      reduce using rule 78 (FirstPriorityOperator -> * .)
+    string          reduce using rule 78 (FirstPriorityOperator -> * .)
+    char            reduce using rule 78 (FirstPriorityOperator -> * .)
+    num_int         reduce using rule 78 (FirstPriorityOperator -> * .)
+    num_real        reduce using rule 78 (FirstPriorityOperator -> * .)
+
+
+state 118
+
+    (79) FirstPriorityOperator -> / .
+
+    (               reduce using rule 79 (FirstPriorityOperator -> / .)
+    NOT             reduce using rule 79 (FirstPriorityOperator -> / .)
+    TRUE            reduce using rule 79 (FirstPriorityOperator -> / .)
+    FALSE           reduce using rule 79 (FirstPriorityOperator -> / .)
+    identifier      reduce using rule 79 (FirstPriorityOperator -> / .)
+    string          reduce using rule 79 (FirstPriorityOperator -> / .)
+    char            reduce using rule 79 (FirstPriorityOperator -> / .)
+    num_int         reduce using rule 79 (FirstPriorityOperator -> / .)
+    num_real        reduce using rule 79 (FirstPriorityOperator -> / .)
+
+
+state 119
+
+    (80) FirstPriorityOperator -> DIV .
+
+    (               reduce using rule 80 (FirstPriorityOperator -> DIV .)
+    NOT             reduce using rule 80 (FirstPriorityOperator -> DIV .)
+    TRUE            reduce using rule 80 (FirstPriorityOperator -> DIV .)
+    FALSE           reduce using rule 80 (FirstPriorityOperator -> DIV .)
+    identifier      reduce using rule 80 (FirstPriorityOperator -> DIV .)
+    string          reduce using rule 80 (FirstPriorityOperator -> DIV .)
+    char            reduce using rule 80 (FirstPriorityOperator -> DIV .)
+    num_int         reduce using rule 80 (FirstPriorityOperator -> DIV .)
+    num_real        reduce using rule 80 (FirstPriorityOperator -> DIV .)
+
+
+state 120
+
+    (81) FirstPriorityOperator -> MOD .
+
+    (               reduce using rule 81 (FirstPriorityOperator -> MOD .)
+    NOT             reduce using rule 81 (FirstPriorityOperator -> MOD .)
+    TRUE            reduce using rule 81 (FirstPriorityOperator -> MOD .)
+    FALSE           reduce using rule 81 (FirstPriorityOperator -> MOD .)
+    identifier      reduce using rule 81 (FirstPriorityOperator -> MOD .)
+    string          reduce using rule 81 (FirstPriorityOperator -> MOD .)
+    char            reduce using rule 81 (FirstPriorityOperator -> MOD .)
+    num_int         reduce using rule 81 (FirstPriorityOperator -> MOD .)
+    num_real        reduce using rule 81 (FirstPriorityOperator -> MOD .)
+
+
+state 121
+
+    (82) FirstPriorityOperator -> AND .
+
+    (               reduce using rule 82 (FirstPriorityOperator -> AND .)
+    NOT             reduce using rule 82 (FirstPriorityOperator -> AND .)
+    TRUE            reduce using rule 82 (FirstPriorityOperator -> AND .)
+    FALSE           reduce using rule 82 (FirstPriorityOperator -> AND .)
+    identifier      reduce using rule 82 (FirstPriorityOperator -> AND .)
+    string          reduce using rule 82 (FirstPriorityOperator -> AND .)
+    char            reduce using rule 82 (FirstPriorityOperator -> AND .)
+    num_int         reduce using rule 82 (FirstPriorityOperator -> AND .)
+    num_real        reduce using rule 82 (FirstPriorityOperator -> AND .)
+
+
+state 122
+
+    (83) Factor -> ( Expression . )
+
+    )               shift and go to state 144
+
+
+state 123
+
+    (87) Factor -> NOT Factor .
+
+    *               reduce using rule 87 (Factor -> NOT Factor .)
+    /               reduce using rule 87 (Factor -> NOT Factor .)
+    DIV             reduce using rule 87 (Factor -> NOT Factor .)
+    MOD             reduce using rule 87 (Factor -> NOT Factor .)
+    AND             reduce using rule 87 (Factor -> NOT Factor .)
+    +               reduce using rule 87 (Factor -> NOT Factor .)
+    -               reduce using rule 87 (Factor -> NOT Factor .)
+    OR              reduce using rule 87 (Factor -> NOT Factor .)
+    EQUAL           reduce using rule 87 (Factor -> NOT Factor .)
+    GREATER_THAN    reduce using rule 87 (Factor -> NOT Factor .)
+    LESS_THAN       reduce using rule 87 (Factor -> NOT Factor .)
+    NOT_EQUAL       reduce using rule 87 (Factor -> NOT Factor .)
+    GREATER_THAN_EQUAL reduce using rule 87 (Factor -> NOT Factor .)
+    LESS_THAN_EQUAL reduce using rule 87 (Factor -> NOT Factor .)
+    THEN            reduce using rule 87 (Factor -> NOT Factor .)
+    DO              reduce using rule 87 (Factor -> NOT Factor .)
+    ;               reduce using rule 87 (Factor -> NOT Factor .)
+    END             reduce using rule 87 (Factor -> NOT Factor .)
+    ELSE            reduce using rule 87 (Factor -> NOT Factor .)
+    )               reduce using rule 87 (Factor -> NOT Factor .)
+    ,               reduce using rule 87 (Factor -> NOT Factor .)
+    ]               reduce using rule 87 (Factor -> NOT Factor .)
+    TO              reduce using rule 87 (Factor -> NOT Factor .)
+    DOWNTO          reduce using rule 87 (Factor -> NOT Factor .)
+
+
+state 124
+
+    (90) FunctionDesignator -> identifier ( . ListArgs )
+    (91) FunctionDesignator -> identifier ( . )
+    (46) ListArgs -> . ListArgs , Arg
+    (47) ListArgs -> . Arg
+    (48) Arg -> . Expression
+    (60) Expression -> . SimpleExpression RelationalOperator Expression
+    (61) Expression -> . SimpleExpression
+    (68) SimpleExpression -> . Sign Term SecondPriorityOperator SimpleExpression
+    (69) SimpleExpression -> . Term SecondPriorityOperator SimpleExpression
+    (70) SimpleExpression -> . Term
+    (74) Sign -> . +
+    (75) Sign -> . -
+    (76) Term -> . Factor FirstPriorityOperator Term
+    (77) Term -> . Factor
+    (83) Factor -> . ( Expression )
+    (84) Factor -> . Variable
+    (85) Factor -> . UnsignedConstant
+    (86) Factor -> . FunctionDesignator
+    (87) Factor -> . NOT Factor
+    (88) Factor -> . TRUE
+    (89) Factor -> . FALSE
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (92) UnsignedConstant -> . UnsignedNumber
+    (93) UnsignedConstant -> . string
+    (94) UnsignedConstant -> . char
+    (90) FunctionDesignator -> . identifier ( ListArgs )
+    (91) FunctionDesignator -> . identifier ( )
+    (98) UnsignedNumber -> . num_int
+    (99) UnsignedNumber -> . num_real
+
+    )               shift and go to state 146
+    +               shift and go to state 63
+    -               shift and go to state 64
+    (               shift and go to state 66
+    NOT             shift and go to state 70
+    TRUE            shift and go to state 71
+    FALSE           shift and go to state 72
+    identifier      shift and go to state 73
+    string          shift and go to state 75
+    char            shift and go to state 76
+    num_int         shift and go to state 77
+    num_real        shift and go to state 78
+
+    ListArgs                       shift and go to state 145
+    Arg                            shift and go to state 99
+    Expression                     shift and go to state 100
+    SimpleExpression               shift and go to state 60
+    Sign                           shift and go to state 61
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 65
+    Variable                       shift and go to state 67
+    UnsignedConstant               shift and go to state 68
+    FunctionDesignator             shift and go to state 69
+    UnsignedNumber                 shift and go to state 74
+
+state 125
+
+    (57) WhileStatement -> WHILE Expression DO . Statement
+    (38) Statement -> . SimpleStatement
+    (39) Statement -> . StructeredStatement
+    (40) SimpleStatement -> . AssignmentStatement
+    (41) SimpleStatement -> . ProcedureStatement
+    (49) StructeredStatement -> . CompoundStatement
+    (50) StructeredStatement -> . ConditionalStatement
+    (51) StructeredStatement -> . RepetitiveStatement
+    (42) AssignmentStatement -> . Variable ASSIGN Expression
+    (43) ProcedureStatement -> . identifier ( ListArgs )
+    (44) ProcedureStatement -> . identifier ( )
+    (45) ProcedureStatement -> . identifier
+    (32) CompoundStatement -> . BEGIN ListStatement END
+    (52) ConditionalStatement -> . IfStatement
+    (55) RepetitiveStatement -> . WhileStatement
+    (56) RepetitiveStatement -> . ForStatement
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (53) IfStatement -> . IF Expression THEN Statement
+    (54) IfStatement -> . IF Expression THEN Statement ELSE Statement
+    (57) WhileStatement -> . WHILE Expression DO Statement
+    (58) ForStatement -> . FOR identifier ASSIGN Expression TO Expression DO Statement
+    (59) ForStatement -> . FOR identifier ASSIGN Expression DOWNTO Expression DO Statement
+
+    identifier      shift and go to state 39
+    BEGIN           shift and go to state 12
+    IF              shift and go to state 43
+    WHILE           shift and go to state 44
+    FOR             shift and go to state 45
+
+    Statement                      shift and go to state 147
+    SimpleStatement                shift and go to state 31
+    StructeredStatement            shift and go to state 32
+    AssignmentStatement            shift and go to state 33
+    ProcedureStatement             shift and go to state 34
+    CompoundStatement              shift and go to state 35
+    ConditionalStatement           shift and go to state 36
+    RepetitiveStatement            shift and go to state 37
+    Variable                       shift and go to state 38
+    IfStatement                    shift and go to state 40
+    WhileStatement                 shift and go to state 41
+    ForStatement                   shift and go to state 42
+
+state 126
+
+    (58) ForStatement -> FOR identifier ASSIGN . Expression TO Expression DO Statement
+    (59) ForStatement -> FOR identifier ASSIGN . Expression DOWNTO Expression DO Statement
+    (60) Expression -> . SimpleExpression RelationalOperator Expression
+    (61) Expression -> . SimpleExpression
+    (68) SimpleExpression -> . Sign Term SecondPriorityOperator SimpleExpression
+    (69) SimpleExpression -> . Term SecondPriorityOperator SimpleExpression
+    (70) SimpleExpression -> . Term
+    (74) Sign -> . +
+    (75) Sign -> . -
+    (76) Term -> . Factor FirstPriorityOperator Term
+    (77) Term -> . Factor
+    (83) Factor -> . ( Expression )
+    (84) Factor -> . Variable
+    (85) Factor -> . UnsignedConstant
+    (86) Factor -> . FunctionDesignator
+    (87) Factor -> . NOT Factor
+    (88) Factor -> . TRUE
+    (89) Factor -> . FALSE
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (92) UnsignedConstant -> . UnsignedNumber
+    (93) UnsignedConstant -> . string
+    (94) UnsignedConstant -> . char
+    (90) FunctionDesignator -> . identifier ( ListArgs )
+    (91) FunctionDesignator -> . identifier ( )
+    (98) UnsignedNumber -> . num_int
+    (99) UnsignedNumber -> . num_real
+
+    +               shift and go to state 63
+    -               shift and go to state 64
+    (               shift and go to state 66
+    NOT             shift and go to state 70
+    TRUE            shift and go to state 71
+    FALSE           shift and go to state 72
+    identifier      shift and go to state 73
+    string          shift and go to state 75
+    char            shift and go to state 76
+    num_int         shift and go to state 77
+    num_real        shift and go to state 78
+
+    Expression                     shift and go to state 148
+    SimpleExpression               shift and go to state 60
+    Sign                           shift and go to state 61
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 65
+    Variable                       shift and go to state 67
+    UnsignedConstant               shift and go to state 68
+    FunctionDesignator             shift and go to state 69
+    UnsignedNumber                 shift and go to state 74
+
+state 127
+
+    (16) Array -> ARRAY [ . Constant . . Constant ] OF identifier
+    (95) Constant -> . num_int
+    (96) Constant -> . Sign num_int
+    (97) Constant -> . char
+    (74) Sign -> . +
+    (75) Sign -> . -
+
+    num_int         shift and go to state 150
+    char            shift and go to state 152
+    +               shift and go to state 63
+    -               shift and go to state 64
+
+    Constant                       shift and go to state 149
+    Sign                           shift and go to state 151
+
+state 128
+
+    (19) ProcedureDeclarationPart -> PROCEDURE identifier ListParametersDeclaration ; Content . ;
+
+    ;               shift and go to state 153
+
+
+state 129
+
+    (21) ListParametersDeclaration -> ( ListOfListParameters ) .
+
+    ;               reduce using rule 21 (ListParametersDeclaration -> ( ListOfListParameters ) .)
+    COLON           reduce using rule 21 (ListParametersDeclaration -> ( ListOfListParameters ) .)
+
+
+state 130
+
+    (22) ListOfListParameters -> ListOfListParameters ; . ListParameters
+    (23) ListOfListParameters -> ListOfListParameters ; . VAR ListParameters
+    (28) ListParameters -> . ListParameters , ElemParameter
+    (29) ListParameters -> . ElemParameter
+    (30) ElemParameter -> . IdentifierList COLON ARRAY OF identifier
+    (31) ElemParameter -> . IdentifierList COLON identifier
+    (17) IdentifierList -> . IdentifierList , identifier
+    (18) IdentifierList -> . identifier
+
+    VAR             shift and go to state 155
+    identifier      shift and go to state 23
+
+    ListParameters                 shift and go to state 154
+    ElemParameter                  shift and go to state 91
+    IdentifierList                 shift and go to state 92
+
+state 131
+
+    (28) ListParameters -> ListParameters , . ElemParameter
+    (30) ElemParameter -> . IdentifierList COLON ARRAY OF identifier
+    (31) ElemParameter -> . IdentifierList COLON identifier
+    (17) IdentifierList -> . IdentifierList , identifier
+    (18) IdentifierList -> . identifier
+
+    identifier      shift and go to state 23
+
+    ElemParameter                  shift and go to state 156
+    IdentifierList                 shift and go to state 92
+
+state 132
+
+    (25) ListOfListParameters -> VAR ListParameters .
+    (28) ListParameters -> ListParameters . , ElemParameter
+
+    )               reduce using rule 25 (ListOfListParameters -> VAR ListParameters .)
+    ;               reduce using rule 25 (ListOfListParameters -> VAR ListParameters .)
+    ,               shift and go to state 131
+
+
+state 133
+
+    (30) ElemParameter -> IdentifierList COLON . ARRAY OF identifier
+    (31) ElemParameter -> IdentifierList COLON . identifier
+
+    ARRAY           shift and go to state 157
+    identifier      shift and go to state 158
+
+
+state 134
+
+    (20) FunctionDeclarationPart -> FUNCTION identifier ListParametersDeclaration COLON identifier . ; Content ;
+
+    ;               shift and go to state 159
+
+
+state 135
+
+    (43) ProcedureStatement -> identifier ( ListArgs ) .
+
+    ;               reduce using rule 43 (ProcedureStatement -> identifier ( ListArgs ) .)
+    END             reduce using rule 43 (ProcedureStatement -> identifier ( ListArgs ) .)
+    ELSE            reduce using rule 43 (ProcedureStatement -> identifier ( ListArgs ) .)
+
+
+state 136
+
+    (46) ListArgs -> ListArgs , . Arg
+    (48) Arg -> . Expression
+    (60) Expression -> . SimpleExpression RelationalOperator Expression
+    (61) Expression -> . SimpleExpression
+    (68) SimpleExpression -> . Sign Term SecondPriorityOperator SimpleExpression
+    (69) SimpleExpression -> . Term SecondPriorityOperator SimpleExpression
+    (70) SimpleExpression -> . Term
+    (74) Sign -> . +
+    (75) Sign -> . -
+    (76) Term -> . Factor FirstPriorityOperator Term
+    (77) Term -> . Factor
+    (83) Factor -> . ( Expression )
+    (84) Factor -> . Variable
+    (85) Factor -> . UnsignedConstant
+    (86) Factor -> . FunctionDesignator
+    (87) Factor -> . NOT Factor
+    (88) Factor -> . TRUE
+    (89) Factor -> . FALSE
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (92) UnsignedConstant -> . UnsignedNumber
+    (93) UnsignedConstant -> . string
+    (94) UnsignedConstant -> . char
+    (90) FunctionDesignator -> . identifier ( ListArgs )
+    (91) FunctionDesignator -> . identifier ( )
+    (98) UnsignedNumber -> . num_int
+    (99) UnsignedNumber -> . num_real
+
+    +               shift and go to state 63
+    -               shift and go to state 64
+    (               shift and go to state 66
+    NOT             shift and go to state 70
+    TRUE            shift and go to state 71
+    FALSE           shift and go to state 72
+    identifier      shift and go to state 73
+    string          shift and go to state 75
+    char            shift and go to state 76
+    num_int         shift and go to state 77
+    num_real        shift and go to state 78
+
+    Arg                            shift and go to state 160
+    Expression                     shift and go to state 100
+    SimpleExpression               shift and go to state 60
+    Sign                           shift and go to state 61
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 65
+    Variable                       shift and go to state 67
+    UnsignedConstant               shift and go to state 68
+    FunctionDesignator             shift and go to state 69
+    UnsignedNumber                 shift and go to state 74
+
+state 137
+
+    (101) Variable -> identifier [ ListExpressions ] .
+
+    ASSIGN          reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    *               reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    /               reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    DIV             reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    MOD             reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    AND             reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    +               reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    -               reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    OR              reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    EQUAL           reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    GREATER_THAN    reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    LESS_THAN       reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    NOT_EQUAL       reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    GREATER_THAN_EQUAL reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    LESS_THAN_EQUAL reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    THEN            reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    DO              reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    ;               reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    END             reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    ELSE            reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    )               reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    ,               reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    ]               reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    TO              reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+    DOWNTO          reduce using rule 101 (Variable -> identifier [ ListExpressions ] .)
+
+
+state 138
+
+    (102) ListExpressions -> ListExpressions , . Expression
+    (60) Expression -> . SimpleExpression RelationalOperator Expression
+    (61) Expression -> . SimpleExpression
+    (68) SimpleExpression -> . Sign Term SecondPriorityOperator SimpleExpression
+    (69) SimpleExpression -> . Term SecondPriorityOperator SimpleExpression
+    (70) SimpleExpression -> . Term
+    (74) Sign -> . +
+    (75) Sign -> . -
+    (76) Term -> . Factor FirstPriorityOperator Term
+    (77) Term -> . Factor
+    (83) Factor -> . ( Expression )
+    (84) Factor -> . Variable
+    (85) Factor -> . UnsignedConstant
+    (86) Factor -> . FunctionDesignator
+    (87) Factor -> . NOT Factor
+    (88) Factor -> . TRUE
+    (89) Factor -> . FALSE
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (92) UnsignedConstant -> . UnsignedNumber
+    (93) UnsignedConstant -> . string
+    (94) UnsignedConstant -> . char
+    (90) FunctionDesignator -> . identifier ( ListArgs )
+    (91) FunctionDesignator -> . identifier ( )
+    (98) UnsignedNumber -> . num_int
+    (99) UnsignedNumber -> . num_real
+
+    +               shift and go to state 63
+    -               shift and go to state 64
+    (               shift and go to state 66
+    NOT             shift and go to state 70
+    TRUE            shift and go to state 71
+    FALSE           shift and go to state 72
+    identifier      shift and go to state 73
+    string          shift and go to state 75
+    char            shift and go to state 76
+    num_int         shift and go to state 77
+    num_real        shift and go to state 78
+
+    Expression                     shift and go to state 161
+    SimpleExpression               shift and go to state 60
+    Sign                           shift and go to state 61
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 65
+    Variable                       shift and go to state 67
+    UnsignedConstant               shift and go to state 68
+    FunctionDesignator             shift and go to state 69
+    UnsignedNumber                 shift and go to state 74
+
+state 139
+
+    (53) IfStatement -> IF Expression THEN Statement .
+    (54) IfStatement -> IF Expression THEN Statement . ELSE Statement
+
+    ;               reduce using rule 53 (IfStatement -> IF Expression THEN Statement .)
+    END             reduce using rule 53 (IfStatement -> IF Expression THEN Statement .)
+    ELSE            shift and go to state 162
+
+  ! ELSE            [ reduce using rule 53 (IfStatement -> IF Expression THEN Statement .) ]
+
+
+state 140
+
+    (60) Expression -> SimpleExpression RelationalOperator Expression .
+
+    THEN            reduce using rule 60 (Expression -> SimpleExpression RelationalOperator Expression .)
+    DO              reduce using rule 60 (Expression -> SimpleExpression RelationalOperator Expression .)
+    ;               reduce using rule 60 (Expression -> SimpleExpression RelationalOperator Expression .)
+    END             reduce using rule 60 (Expression -> SimpleExpression RelationalOperator Expression .)
+    ELSE            reduce using rule 60 (Expression -> SimpleExpression RelationalOperator Expression .)
+    )               reduce using rule 60 (Expression -> SimpleExpression RelationalOperator Expression .)
+    ,               reduce using rule 60 (Expression -> SimpleExpression RelationalOperator Expression .)
+    ]               reduce using rule 60 (Expression -> SimpleExpression RelationalOperator Expression .)
+    TO              reduce using rule 60 (Expression -> SimpleExpression RelationalOperator Expression .)
+    DOWNTO          reduce using rule 60 (Expression -> SimpleExpression RelationalOperator Expression .)
+
+
+state 141
+
+    (68) SimpleExpression -> Sign Term SecondPriorityOperator . SimpleExpression
+    (68) SimpleExpression -> . Sign Term SecondPriorityOperator SimpleExpression
+    (69) SimpleExpression -> . Term SecondPriorityOperator SimpleExpression
+    (70) SimpleExpression -> . Term
+    (74) Sign -> . +
+    (75) Sign -> . -
+    (76) Term -> . Factor FirstPriorityOperator Term
+    (77) Term -> . Factor
+    (83) Factor -> . ( Expression )
+    (84) Factor -> . Variable
+    (85) Factor -> . UnsignedConstant
+    (86) Factor -> . FunctionDesignator
+    (87) Factor -> . NOT Factor
+    (88) Factor -> . TRUE
+    (89) Factor -> . FALSE
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (92) UnsignedConstant -> . UnsignedNumber
+    (93) UnsignedConstant -> . string
+    (94) UnsignedConstant -> . char
+    (90) FunctionDesignator -> . identifier ( ListArgs )
+    (91) FunctionDesignator -> . identifier ( )
+    (98) UnsignedNumber -> . num_int
+    (99) UnsignedNumber -> . num_real
+
+    +               shift and go to state 63
+    -               shift and go to state 64
+    (               shift and go to state 66
+    NOT             shift and go to state 70
+    TRUE            shift and go to state 71
+    FALSE           shift and go to state 72
+    identifier      shift and go to state 73
+    string          shift and go to state 75
+    char            shift and go to state 76
+    num_int         shift and go to state 77
+    num_real        shift and go to state 78
+
+    Sign                           shift and go to state 61
+    Term                           shift and go to state 62
+    SimpleExpression               shift and go to state 163
+    Factor                         shift and go to state 65
+    Variable                       shift and go to state 67
+    UnsignedConstant               shift and go to state 68
+    FunctionDesignator             shift and go to state 69
+    UnsignedNumber                 shift and go to state 74
+
+state 142
+
+    (69) SimpleExpression -> Term SecondPriorityOperator SimpleExpression .
+
+    EQUAL           reduce using rule 69 (SimpleExpression -> Term SecondPriorityOperator SimpleExpression .)
+    GREATER_THAN    reduce using rule 69 (SimpleExpression -> Term SecondPriorityOperator SimpleExpression .)
+    LESS_THAN       reduce using rule 69 (SimpleExpression -> Term SecondPriorityOperator SimpleExpression .)
+    NOT_EQUAL       reduce using rule 69 (SimpleExpression -> Term SecondPriorityOperator SimpleExpression .)
+    GREATER_THAN_EQUAL reduce using rule 69 (SimpleExpression -> Term SecondPriorityOperator SimpleExpression .)
+    LESS_THAN_EQUAL reduce using rule 69 (SimpleExpression -> Term SecondPriorityOperator SimpleExpression .)
+    THEN            reduce using rule 69 (SimpleExpression -> Term SecondPriorityOperator SimpleExpression .)
+    DO              reduce using rule 69 (SimpleExpression -> Term SecondPriorityOperator SimpleExpression .)
+    ;               reduce using rule 69 (SimpleExpression -> Term SecondPriorityOperator SimpleExpression .)
+    END             reduce using rule 69 (SimpleExpression -> Term SecondPriorityOperator SimpleExpression .)
+    ELSE            reduce using rule 69 (SimpleExpression -> Term SecondPriorityOperator SimpleExpression .)
+    )               reduce using rule 69 (SimpleExpression -> Term SecondPriorityOperator SimpleExpression .)
+    ,               reduce using rule 69 (SimpleExpression -> Term SecondPriorityOperator SimpleExpression .)
+    ]               reduce using rule 69 (SimpleExpression -> Term SecondPriorityOperator SimpleExpression .)
+    TO              reduce using rule 69 (SimpleExpression -> Term SecondPriorityOperator SimpleExpression .)
+    DOWNTO          reduce using rule 69 (SimpleExpression -> Term SecondPriorityOperator SimpleExpression .)
+
+
+state 143
+
+    (76) Term -> Factor FirstPriorityOperator Term .
+
+    +               reduce using rule 76 (Term -> Factor FirstPriorityOperator Term .)
+    -               reduce using rule 76 (Term -> Factor FirstPriorityOperator Term .)
+    OR              reduce using rule 76 (Term -> Factor FirstPriorityOperator Term .)
+    EQUAL           reduce using rule 76 (Term -> Factor FirstPriorityOperator Term .)
+    GREATER_THAN    reduce using rule 76 (Term -> Factor FirstPriorityOperator Term .)
+    LESS_THAN       reduce using rule 76 (Term -> Factor FirstPriorityOperator Term .)
+    NOT_EQUAL       reduce using rule 76 (Term -> Factor FirstPriorityOperator Term .)
+    GREATER_THAN_EQUAL reduce using rule 76 (Term -> Factor FirstPriorityOperator Term .)
+    LESS_THAN_EQUAL reduce using rule 76 (Term -> Factor FirstPriorityOperator Term .)
+    THEN            reduce using rule 76 (Term -> Factor FirstPriorityOperator Term .)
+    DO              reduce using rule 76 (Term -> Factor FirstPriorityOperator Term .)
+    ;               reduce using rule 76 (Term -> Factor FirstPriorityOperator Term .)
+    END             reduce using rule 76 (Term -> Factor FirstPriorityOperator Term .)
+    ELSE            reduce using rule 76 (Term -> Factor FirstPriorityOperator Term .)
+    )               reduce using rule 76 (Term -> Factor FirstPriorityOperator Term .)
+    ,               reduce using rule 76 (Term -> Factor FirstPriorityOperator Term .)
+    ]               reduce using rule 76 (Term -> Factor FirstPriorityOperator Term .)
+    TO              reduce using rule 76 (Term -> Factor FirstPriorityOperator Term .)
+    DOWNTO          reduce using rule 76 (Term -> Factor FirstPriorityOperator Term .)
+
+
+state 144
+
+    (83) Factor -> ( Expression ) .
+
+    *               reduce using rule 83 (Factor -> ( Expression ) .)
+    /               reduce using rule 83 (Factor -> ( Expression ) .)
+    DIV             reduce using rule 83 (Factor -> ( Expression ) .)
+    MOD             reduce using rule 83 (Factor -> ( Expression ) .)
+    AND             reduce using rule 83 (Factor -> ( Expression ) .)
+    +               reduce using rule 83 (Factor -> ( Expression ) .)
+    -               reduce using rule 83 (Factor -> ( Expression ) .)
+    OR              reduce using rule 83 (Factor -> ( Expression ) .)
+    EQUAL           reduce using rule 83 (Factor -> ( Expression ) .)
+    GREATER_THAN    reduce using rule 83 (Factor -> ( Expression ) .)
+    LESS_THAN       reduce using rule 83 (Factor -> ( Expression ) .)
+    NOT_EQUAL       reduce using rule 83 (Factor -> ( Expression ) .)
+    GREATER_THAN_EQUAL reduce using rule 83 (Factor -> ( Expression ) .)
+    LESS_THAN_EQUAL reduce using rule 83 (Factor -> ( Expression ) .)
+    THEN            reduce using rule 83 (Factor -> ( Expression ) .)
+    DO              reduce using rule 83 (Factor -> ( Expression ) .)
+    ;               reduce using rule 83 (Factor -> ( Expression ) .)
+    END             reduce using rule 83 (Factor -> ( Expression ) .)
+    ELSE            reduce using rule 83 (Factor -> ( Expression ) .)
+    )               reduce using rule 83 (Factor -> ( Expression ) .)
+    ,               reduce using rule 83 (Factor -> ( Expression ) .)
+    ]               reduce using rule 83 (Factor -> ( Expression ) .)
+    TO              reduce using rule 83 (Factor -> ( Expression ) .)
+    DOWNTO          reduce using rule 83 (Factor -> ( Expression ) .)
+
+
+state 145
+
+    (90) FunctionDesignator -> identifier ( ListArgs . )
+    (46) ListArgs -> ListArgs . , Arg
+
+    )               shift and go to state 164
+    ,               shift and go to state 136
+
+
+state 146
+
+    (91) FunctionDesignator -> identifier ( ) .
+
+    *               reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+    /               reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+    DIV             reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+    MOD             reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+    AND             reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+    +               reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+    -               reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+    OR              reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+    EQUAL           reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+    GREATER_THAN    reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+    LESS_THAN       reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+    NOT_EQUAL       reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+    GREATER_THAN_EQUAL reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+    LESS_THAN_EQUAL reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+    THEN            reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+    DO              reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+    ;               reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+    END             reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+    ELSE            reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+    )               reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+    ,               reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+    ]               reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+    TO              reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+    DOWNTO          reduce using rule 91 (FunctionDesignator -> identifier ( ) .)
+
+
+state 147
+
+    (57) WhileStatement -> WHILE Expression DO Statement .
+
+    ;               reduce using rule 57 (WhileStatement -> WHILE Expression DO Statement .)
+    END             reduce using rule 57 (WhileStatement -> WHILE Expression DO Statement .)
+    ELSE            reduce using rule 57 (WhileStatement -> WHILE Expression DO Statement .)
+
+
+state 148
+
+    (58) ForStatement -> FOR identifier ASSIGN Expression . TO Expression DO Statement
+    (59) ForStatement -> FOR identifier ASSIGN Expression . DOWNTO Expression DO Statement
+
+    TO              shift and go to state 165
+    DOWNTO          shift and go to state 166
+
+
+state 149
+
+    (16) Array -> ARRAY [ Constant . . . Constant ] OF identifier
+
+    .               shift and go to state 167
+
+
+state 150
+
+    (95) Constant -> num_int .
+
+    .               reduce using rule 95 (Constant -> num_int .)
+    ]               reduce using rule 95 (Constant -> num_int .)
+
+
+state 151
+
+    (96) Constant -> Sign . num_int
+
+    num_int         shift and go to state 168
+
+
+state 152
+
+    (97) Constant -> char .
+
+    .               reduce using rule 97 (Constant -> char .)
+    ]               reduce using rule 97 (Constant -> char .)
+
+
+state 153
+
+    (19) ProcedureDeclarationPart -> PROCEDURE identifier ListParametersDeclaration ; Content ; .
+
+    BEGIN           reduce using rule 19 (ProcedureDeclarationPart -> PROCEDURE identifier ListParametersDeclaration ; Content ; .)
+    VAR             reduce using rule 19 (ProcedureDeclarationPart -> PROCEDURE identifier ListParametersDeclaration ; Content ; .)
+    PROCEDURE       reduce using rule 19 (ProcedureDeclarationPart -> PROCEDURE identifier ListParametersDeclaration ; Content ; .)
+    FUNCTION        reduce using rule 19 (ProcedureDeclarationPart -> PROCEDURE identifier ListParametersDeclaration ; Content ; .)
+
+
+state 154
+
+    (22) ListOfListParameters -> ListOfListParameters ; ListParameters .
+    (28) ListParameters -> ListParameters . , ElemParameter
+
+    )               reduce using rule 22 (ListOfListParameters -> ListOfListParameters ; ListParameters .)
+    ;               reduce using rule 22 (ListOfListParameters -> ListOfListParameters ; ListParameters .)
+    ,               shift and go to state 131
+
+
+state 155
+
+    (23) ListOfListParameters -> ListOfListParameters ; VAR . ListParameters
+    (28) ListParameters -> . ListParameters , ElemParameter
+    (29) ListParameters -> . ElemParameter
+    (30) ElemParameter -> . IdentifierList COLON ARRAY OF identifier
+    (31) ElemParameter -> . IdentifierList COLON identifier
+    (17) IdentifierList -> . IdentifierList , identifier
+    (18) IdentifierList -> . identifier
+
+    identifier      shift and go to state 23
+
+    ListParameters                 shift and go to state 169
+    ElemParameter                  shift and go to state 91
+    IdentifierList                 shift and go to state 92
+
+state 156
+
+    (28) ListParameters -> ListParameters , ElemParameter .
+
+    ,               reduce using rule 28 (ListParameters -> ListParameters , ElemParameter .)
+    )               reduce using rule 28 (ListParameters -> ListParameters , ElemParameter .)
+    ;               reduce using rule 28 (ListParameters -> ListParameters , ElemParameter .)
+
+
+state 157
+
+    (30) ElemParameter -> IdentifierList COLON ARRAY . OF identifier
+
+    OF              shift and go to state 170
+
+
+state 158
+
+    (31) ElemParameter -> IdentifierList COLON identifier .
+
+    ,               reduce using rule 31 (ElemParameter -> IdentifierList COLON identifier .)
+    )               reduce using rule 31 (ElemParameter -> IdentifierList COLON identifier .)
+    ;               reduce using rule 31 (ElemParameter -> IdentifierList COLON identifier .)
+
+
+state 159
+
+    (20) FunctionDeclarationPart -> FUNCTION identifier ListParametersDeclaration COLON identifier ; . Content ;
+    (6) Content -> . Declarations CompoundStatement
+    (7) Declarations -> . Declarations VariableDeclarationPart
+    (8) Declarations -> . Declarations ProcedureDeclarationPart
+    (9) Declarations -> . Declarations FunctionDeclarationPart
+    (10) Declarations -> .
+
+    BEGIN           reduce using rule 10 (Declarations -> .)
+    VAR             reduce using rule 10 (Declarations -> .)
+    PROCEDURE       reduce using rule 10 (Declarations -> .)
+    FUNCTION        reduce using rule 10 (Declarations -> .)
+
+    Content                        shift and go to state 171
+    Declarations                   shift and go to state 5
+
+state 160
+
+    (46) ListArgs -> ListArgs , Arg .
+
+    )               reduce using rule 46 (ListArgs -> ListArgs , Arg .)
+    ,               reduce using rule 46 (ListArgs -> ListArgs , Arg .)
+
+
+state 161
+
+    (102) ListExpressions -> ListExpressions , Expression .
+
+    ]               reduce using rule 102 (ListExpressions -> ListExpressions , Expression .)
+    ,               reduce using rule 102 (ListExpressions -> ListExpressions , Expression .)
+
+
+state 162
+
+    (54) IfStatement -> IF Expression THEN Statement ELSE . Statement
+    (38) Statement -> . SimpleStatement
+    (39) Statement -> . StructeredStatement
+    (40) SimpleStatement -> . AssignmentStatement
+    (41) SimpleStatement -> . ProcedureStatement
+    (49) StructeredStatement -> . CompoundStatement
+    (50) StructeredStatement -> . ConditionalStatement
+    (51) StructeredStatement -> . RepetitiveStatement
+    (42) AssignmentStatement -> . Variable ASSIGN Expression
+    (43) ProcedureStatement -> . identifier ( ListArgs )
+    (44) ProcedureStatement -> . identifier ( )
+    (45) ProcedureStatement -> . identifier
+    (32) CompoundStatement -> . BEGIN ListStatement END
+    (52) ConditionalStatement -> . IfStatement
+    (55) RepetitiveStatement -> . WhileStatement
+    (56) RepetitiveStatement -> . ForStatement
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (53) IfStatement -> . IF Expression THEN Statement
+    (54) IfStatement -> . IF Expression THEN Statement ELSE Statement
+    (57) WhileStatement -> . WHILE Expression DO Statement
+    (58) ForStatement -> . FOR identifier ASSIGN Expression TO Expression DO Statement
+    (59) ForStatement -> . FOR identifier ASSIGN Expression DOWNTO Expression DO Statement
+
+    identifier      shift and go to state 39
+    BEGIN           shift and go to state 12
+    IF              shift and go to state 43
+    WHILE           shift and go to state 44
+    FOR             shift and go to state 45
+
+    Statement                      shift and go to state 172
+    SimpleStatement                shift and go to state 31
+    StructeredStatement            shift and go to state 32
+    AssignmentStatement            shift and go to state 33
+    ProcedureStatement             shift and go to state 34
+    CompoundStatement              shift and go to state 35
+    ConditionalStatement           shift and go to state 36
+    RepetitiveStatement            shift and go to state 37
+    Variable                       shift and go to state 38
+    IfStatement                    shift and go to state 40
+    WhileStatement                 shift and go to state 41
+    ForStatement                   shift and go to state 42
+
+state 163
+
+    (68) SimpleExpression -> Sign Term SecondPriorityOperator SimpleExpression .
+
+    EQUAL           reduce using rule 68 (SimpleExpression -> Sign Term SecondPriorityOperator SimpleExpression .)
+    GREATER_THAN    reduce using rule 68 (SimpleExpression -> Sign Term SecondPriorityOperator SimpleExpression .)
+    LESS_THAN       reduce using rule 68 (SimpleExpression -> Sign Term SecondPriorityOperator SimpleExpression .)
+    NOT_EQUAL       reduce using rule 68 (SimpleExpression -> Sign Term SecondPriorityOperator SimpleExpression .)
+    GREATER_THAN_EQUAL reduce using rule 68 (SimpleExpression -> Sign Term SecondPriorityOperator SimpleExpression .)
+    LESS_THAN_EQUAL reduce using rule 68 (SimpleExpression -> Sign Term SecondPriorityOperator SimpleExpression .)
+    THEN            reduce using rule 68 (SimpleExpression -> Sign Term SecondPriorityOperator SimpleExpression .)
+    DO              reduce using rule 68 (SimpleExpression -> Sign Term SecondPriorityOperator SimpleExpression .)
+    ;               reduce using rule 68 (SimpleExpression -> Sign Term SecondPriorityOperator SimpleExpression .)
+    END             reduce using rule 68 (SimpleExpression -> Sign Term SecondPriorityOperator SimpleExpression .)
+    ELSE            reduce using rule 68 (SimpleExpression -> Sign Term SecondPriorityOperator SimpleExpression .)
+    )               reduce using rule 68 (SimpleExpression -> Sign Term SecondPriorityOperator SimpleExpression .)
+    ,               reduce using rule 68 (SimpleExpression -> Sign Term SecondPriorityOperator SimpleExpression .)
+    ]               reduce using rule 68 (SimpleExpression -> Sign Term SecondPriorityOperator SimpleExpression .)
+    TO              reduce using rule 68 (SimpleExpression -> Sign Term SecondPriorityOperator SimpleExpression .)
+    DOWNTO          reduce using rule 68 (SimpleExpression -> Sign Term SecondPriorityOperator SimpleExpression .)
+
+
+state 164
+
+    (90) FunctionDesignator -> identifier ( ListArgs ) .
+
+    *               reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+    /               reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+    DIV             reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+    MOD             reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+    AND             reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+    +               reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+    -               reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+    OR              reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+    EQUAL           reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+    GREATER_THAN    reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+    LESS_THAN       reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+    NOT_EQUAL       reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+    GREATER_THAN_EQUAL reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+    LESS_THAN_EQUAL reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+    THEN            reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+    DO              reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+    ;               reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+    END             reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+    ELSE            reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+    )               reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+    ,               reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+    ]               reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+    TO              reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+    DOWNTO          reduce using rule 90 (FunctionDesignator -> identifier ( ListArgs ) .)
+
+
+state 165
+
+    (58) ForStatement -> FOR identifier ASSIGN Expression TO . Expression DO Statement
+    (60) Expression -> . SimpleExpression RelationalOperator Expression
+    (61) Expression -> . SimpleExpression
+    (68) SimpleExpression -> . Sign Term SecondPriorityOperator SimpleExpression
+    (69) SimpleExpression -> . Term SecondPriorityOperator SimpleExpression
+    (70) SimpleExpression -> . Term
+    (74) Sign -> . +
+    (75) Sign -> . -
+    (76) Term -> . Factor FirstPriorityOperator Term
+    (77) Term -> . Factor
+    (83) Factor -> . ( Expression )
+    (84) Factor -> . Variable
+    (85) Factor -> . UnsignedConstant
+    (86) Factor -> . FunctionDesignator
+    (87) Factor -> . NOT Factor
+    (88) Factor -> . TRUE
+    (89) Factor -> . FALSE
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (92) UnsignedConstant -> . UnsignedNumber
+    (93) UnsignedConstant -> . string
+    (94) UnsignedConstant -> . char
+    (90) FunctionDesignator -> . identifier ( ListArgs )
+    (91) FunctionDesignator -> . identifier ( )
+    (98) UnsignedNumber -> . num_int
+    (99) UnsignedNumber -> . num_real
+
+    +               shift and go to state 63
+    -               shift and go to state 64
+    (               shift and go to state 66
+    NOT             shift and go to state 70
+    TRUE            shift and go to state 71
+    FALSE           shift and go to state 72
+    identifier      shift and go to state 73
+    string          shift and go to state 75
+    char            shift and go to state 76
+    num_int         shift and go to state 77
+    num_real        shift and go to state 78
+
+    Expression                     shift and go to state 173
+    SimpleExpression               shift and go to state 60
+    Sign                           shift and go to state 61
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 65
+    Variable                       shift and go to state 67
+    UnsignedConstant               shift and go to state 68
+    FunctionDesignator             shift and go to state 69
+    UnsignedNumber                 shift and go to state 74
+
+state 166
+
+    (59) ForStatement -> FOR identifier ASSIGN Expression DOWNTO . Expression DO Statement
+    (60) Expression -> . SimpleExpression RelationalOperator Expression
+    (61) Expression -> . SimpleExpression
+    (68) SimpleExpression -> . Sign Term SecondPriorityOperator SimpleExpression
+    (69) SimpleExpression -> . Term SecondPriorityOperator SimpleExpression
+    (70) SimpleExpression -> . Term
+    (74) Sign -> . +
+    (75) Sign -> . -
+    (76) Term -> . Factor FirstPriorityOperator Term
+    (77) Term -> . Factor
+    (83) Factor -> . ( Expression )
+    (84) Factor -> . Variable
+    (85) Factor -> . UnsignedConstant
+    (86) Factor -> . FunctionDesignator
+    (87) Factor -> . NOT Factor
+    (88) Factor -> . TRUE
+    (89) Factor -> . FALSE
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (92) UnsignedConstant -> . UnsignedNumber
+    (93) UnsignedConstant -> . string
+    (94) UnsignedConstant -> . char
+    (90) FunctionDesignator -> . identifier ( ListArgs )
+    (91) FunctionDesignator -> . identifier ( )
+    (98) UnsignedNumber -> . num_int
+    (99) UnsignedNumber -> . num_real
+
+    +               shift and go to state 63
+    -               shift and go to state 64
+    (               shift and go to state 66
+    NOT             shift and go to state 70
+    TRUE            shift and go to state 71
+    FALSE           shift and go to state 72
+    identifier      shift and go to state 73
+    string          shift and go to state 75
+    char            shift and go to state 76
+    num_int         shift and go to state 77
+    num_real        shift and go to state 78
+
+    Expression                     shift and go to state 174
+    SimpleExpression               shift and go to state 60
+    Sign                           shift and go to state 61
+    Term                           shift and go to state 62
+    Factor                         shift and go to state 65
+    Variable                       shift and go to state 67
+    UnsignedConstant               shift and go to state 68
+    FunctionDesignator             shift and go to state 69
+    UnsignedNumber                 shift and go to state 74
+
+state 167
+
+    (16) Array -> ARRAY [ Constant . . . Constant ] OF identifier
+
+    .               shift and go to state 175
+
+
+state 168
+
+    (96) Constant -> Sign num_int .
+
+    .               reduce using rule 96 (Constant -> Sign num_int .)
+    ]               reduce using rule 96 (Constant -> Sign num_int .)
+
+
+state 169
+
+    (23) ListOfListParameters -> ListOfListParameters ; VAR ListParameters .
+    (28) ListParameters -> ListParameters . , ElemParameter
+
+    )               reduce using rule 23 (ListOfListParameters -> ListOfListParameters ; VAR ListParameters .)
+    ;               reduce using rule 23 (ListOfListParameters -> ListOfListParameters ; VAR ListParameters .)
+    ,               shift and go to state 131
+
+
+state 170
+
+    (30) ElemParameter -> IdentifierList COLON ARRAY OF . identifier
+
+    identifier      shift and go to state 176
+
+
+state 171
+
+    (20) FunctionDeclarationPart -> FUNCTION identifier ListParametersDeclaration COLON identifier ; Content . ;
+
+    ;               shift and go to state 177
+
+
+state 172
+
+    (54) IfStatement -> IF Expression THEN Statement ELSE Statement .
+
+    ;               reduce using rule 54 (IfStatement -> IF Expression THEN Statement ELSE Statement .)
+    END             reduce using rule 54 (IfStatement -> IF Expression THEN Statement ELSE Statement .)
+    ELSE            reduce using rule 54 (IfStatement -> IF Expression THEN Statement ELSE Statement .)
+
+
+state 173
+
+    (58) ForStatement -> FOR identifier ASSIGN Expression TO Expression . DO Statement
+
+    DO              shift and go to state 178
+
+
+state 174
+
+    (59) ForStatement -> FOR identifier ASSIGN Expression DOWNTO Expression . DO Statement
+
+    DO              shift and go to state 179
+
+
+state 175
+
+    (16) Array -> ARRAY [ Constant . . . Constant ] OF identifier
+    (95) Constant -> . num_int
+    (96) Constant -> . Sign num_int
+    (97) Constant -> . char
+    (74) Sign -> . +
+    (75) Sign -> . -
+
+    num_int         shift and go to state 150
+    char            shift and go to state 152
+    +               shift and go to state 63
+    -               shift and go to state 64
+
+    Constant                       shift and go to state 180
+    Sign                           shift and go to state 151
+
+state 176
+
+    (30) ElemParameter -> IdentifierList COLON ARRAY OF identifier .
+
+    ,               reduce using rule 30 (ElemParameter -> IdentifierList COLON ARRAY OF identifier .)
+    )               reduce using rule 30 (ElemParameter -> IdentifierList COLON ARRAY OF identifier .)
+    ;               reduce using rule 30 (ElemParameter -> IdentifierList COLON ARRAY OF identifier .)
+
+
+state 177
+
+    (20) FunctionDeclarationPart -> FUNCTION identifier ListParametersDeclaration COLON identifier ; Content ; .
+
+    BEGIN           reduce using rule 20 (FunctionDeclarationPart -> FUNCTION identifier ListParametersDeclaration COLON identifier ; Content ; .)
+    VAR             reduce using rule 20 (FunctionDeclarationPart -> FUNCTION identifier ListParametersDeclaration COLON identifier ; Content ; .)
+    PROCEDURE       reduce using rule 20 (FunctionDeclarationPart -> FUNCTION identifier ListParametersDeclaration COLON identifier ; Content ; .)
+    FUNCTION        reduce using rule 20 (FunctionDeclarationPart -> FUNCTION identifier ListParametersDeclaration COLON identifier ; Content ; .)
+
+
+state 178
+
+    (58) ForStatement -> FOR identifier ASSIGN Expression TO Expression DO . Statement
+    (38) Statement -> . SimpleStatement
+    (39) Statement -> . StructeredStatement
+    (40) SimpleStatement -> . AssignmentStatement
+    (41) SimpleStatement -> . ProcedureStatement
+    (49) StructeredStatement -> . CompoundStatement
+    (50) StructeredStatement -> . ConditionalStatement
+    (51) StructeredStatement -> . RepetitiveStatement
+    (42) AssignmentStatement -> . Variable ASSIGN Expression
+    (43) ProcedureStatement -> . identifier ( ListArgs )
+    (44) ProcedureStatement -> . identifier ( )
+    (45) ProcedureStatement -> . identifier
+    (32) CompoundStatement -> . BEGIN ListStatement END
+    (52) ConditionalStatement -> . IfStatement
+    (55) RepetitiveStatement -> . WhileStatement
+    (56) RepetitiveStatement -> . ForStatement
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (53) IfStatement -> . IF Expression THEN Statement
+    (54) IfStatement -> . IF Expression THEN Statement ELSE Statement
+    (57) WhileStatement -> . WHILE Expression DO Statement
+    (58) ForStatement -> . FOR identifier ASSIGN Expression TO Expression DO Statement
+    (59) ForStatement -> . FOR identifier ASSIGN Expression DOWNTO Expression DO Statement
+
+    identifier      shift and go to state 39
+    BEGIN           shift and go to state 12
+    IF              shift and go to state 43
+    WHILE           shift and go to state 44
+    FOR             shift and go to state 45
+
+    Statement                      shift and go to state 181
+    SimpleStatement                shift and go to state 31
+    StructeredStatement            shift and go to state 32
+    AssignmentStatement            shift and go to state 33
+    ProcedureStatement             shift and go to state 34
+    CompoundStatement              shift and go to state 35
+    ConditionalStatement           shift and go to state 36
+    RepetitiveStatement            shift and go to state 37
+    Variable                       shift and go to state 38
+    IfStatement                    shift and go to state 40
+    WhileStatement                 shift and go to state 41
+    ForStatement                   shift and go to state 42
+
+state 179
+
+    (59) ForStatement -> FOR identifier ASSIGN Expression DOWNTO Expression DO . Statement
+    (38) Statement -> . SimpleStatement
+    (39) Statement -> . StructeredStatement
+    (40) SimpleStatement -> . AssignmentStatement
+    (41) SimpleStatement -> . ProcedureStatement
+    (49) StructeredStatement -> . CompoundStatement
+    (50) StructeredStatement -> . ConditionalStatement
+    (51) StructeredStatement -> . RepetitiveStatement
+    (42) AssignmentStatement -> . Variable ASSIGN Expression
+    (43) ProcedureStatement -> . identifier ( ListArgs )
+    (44) ProcedureStatement -> . identifier ( )
+    (45) ProcedureStatement -> . identifier
+    (32) CompoundStatement -> . BEGIN ListStatement END
+    (52) ConditionalStatement -> . IfStatement
+    (55) RepetitiveStatement -> . WhileStatement
+    (56) RepetitiveStatement -> . ForStatement
+    (100) Variable -> . identifier
+    (101) Variable -> . identifier [ ListExpressions ]
+    (53) IfStatement -> . IF Expression THEN Statement
+    (54) IfStatement -> . IF Expression THEN Statement ELSE Statement
+    (57) WhileStatement -> . WHILE Expression DO Statement
+    (58) ForStatement -> . FOR identifier ASSIGN Expression TO Expression DO Statement
+    (59) ForStatement -> . FOR identifier ASSIGN Expression DOWNTO Expression DO Statement
+
+    identifier      shift and go to state 39
+    BEGIN           shift and go to state 12
+    IF              shift and go to state 43
+    WHILE           shift and go to state 44
+    FOR             shift and go to state 45
+
+    Statement                      shift and go to state 182
+    SimpleStatement                shift and go to state 31
+    StructeredStatement            shift and go to state 32
+    AssignmentStatement            shift and go to state 33
+    ProcedureStatement             shift and go to state 34
+    CompoundStatement              shift and go to state 35
+    ConditionalStatement           shift and go to state 36
+    RepetitiveStatement            shift and go to state 37
+    Variable                       shift and go to state 38
+    IfStatement                    shift and go to state 40
+    WhileStatement                 shift and go to state 41
+    ForStatement                   shift and go to state 42
+
+state 180
+
+    (16) Array -> ARRAY [ Constant . . Constant . ] OF identifier
+
+    ]               shift and go to state 183
+
+
+state 181
+
+    (58) ForStatement -> FOR identifier ASSIGN Expression TO Expression DO Statement .
+
+    ;               reduce using rule 58 (ForStatement -> FOR identifier ASSIGN Expression TO Expression DO Statement .)
+    END             reduce using rule 58 (ForStatement -> FOR identifier ASSIGN Expression TO Expression DO Statement .)
+    ELSE            reduce using rule 58 (ForStatement -> FOR identifier ASSIGN Expression TO Expression DO Statement .)
+
+
+state 182
+
+    (59) ForStatement -> FOR identifier ASSIGN Expression DOWNTO Expression DO Statement .
+
+    ;               reduce using rule 59 (ForStatement -> FOR identifier ASSIGN Expression DOWNTO Expression DO Statement .)
+    END             reduce using rule 59 (ForStatement -> FOR identifier ASSIGN Expression DOWNTO Expression DO Statement .)
+    ELSE            reduce using rule 59 (ForStatement -> FOR identifier ASSIGN Expression DOWNTO Expression DO Statement .)
+
+
+state 183
+
+    (16) Array -> ARRAY [ Constant . . Constant ] . OF identifier
+
+    OF              shift and go to state 184
+
+
+state 184
+
+    (16) Array -> ARRAY [ Constant . . Constant ] OF . identifier
+
+    identifier      shift and go to state 185
+
+
+state 185
+
+    (16) Array -> ARRAY [ Constant . . Constant ] OF identifier .
+
+    ;               reduce using rule 16 (Array -> ARRAY [ Constant . . Constant ] OF identifier .)
+

@@ -1,0 +1,17 @@
+P = {
+    Content : Declarations CompoundStatement
+
+    Declarations : Declarations VariableDeclarationPart
+        | Empty
+
+    VariableDeclarationPart : VAR ListVarsDeclaration
+
+    ListVarsDeclaration : ListVarsDeclaration ';' ElemVarsDeclaration
+        | ElemVarsDeclaration
+
+    ElemVarsDeclaration : IdentifierList ':' identifier
+
+    IdentifierList : IdentifierList identifier
+        | identifier
+
+}
