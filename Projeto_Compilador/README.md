@@ -51,7 +51,7 @@ Os principais objetivos deste projeto foram:
 
 ## Análise Léxica
 
-A análise léxica é a etapa inicial do processo de compilação, é responsável por ler o código-fonte e por
+A análise léxica é a etapa inicial do processo de compilação. É responsável por ler o código-fonte e por
 convertê-lo numa sequência de *tokens*, que são as unidades léxicas básicas da linguagem. Esta fase
 tem como principal objetivo identificar e classificar símbolos como palavras-chave, identificadores,
 operadores, delimitadores e literais (como números, caracteres e strings), onde os comentários e
